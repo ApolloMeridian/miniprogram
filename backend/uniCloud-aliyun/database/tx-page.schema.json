@@ -1,0 +1,24 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+	"description": "HTMl页面内容",
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": false,
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+        "title": {
+            "bsonType":"string",
+            "label":"页面标题"
+        },
+        "content": {
+            "bsonType":"string",
+            "label":"页面内容"
+        }
+	}
+}

@@ -1,0 +1,69 @@
+{
+  "pages": [
+    "pages/trip/trip",
+    "pages/msg/msg",
+    "pages/user/user",
+    "pages/user/profile",
+    "pages/user/history",
+    "pages/user/help",
+    "pages/trip/permission",
+    "pages/msg/detail",
+    "pages/trip/edit",
+    "pages/user/data",
+    "pages/user/setting",
+    "pages/user/virtual",
+    "pages/guide/guide",
+    "pages/user/about"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#2979ff",
+    "backgroundColor": "#fbf9fe"
+  },
+  "tabBar": {
+    "color": "#c8c9cc",
+    "selectedColor": "#2979ff",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/trip/trip",
+        "text": "轨迹",
+        "iconPath": "static/img/tab/trip.png",
+        "selectedIconPath": "static/img/tab/tripHL.png"
+      },
+      {
+        "pagePath": "pages/user/history",
+        "text": "记录",
+        "iconPath": "static/img/tab/history.png",
+        "selectedIconPath": "static/img/tab/historyHL.png"
+      },
+      {
+        "pagePath": "pages/msg/msg",
+        "text": "消息",
+        "iconPath": "static/img/tab/msg.png",
+        "selectedIconPath": "static/img/tab/msgHL.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "static/img/tab/user.png",
+        "selectedIconPath": "static/img/tab/userHL.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "记录出行轨迹"
+    },
+    "scope.userLocationBackground": {
+      "desc": "后台持续记录出行轨迹"
+    }
+  },
+  "requiredBackgroundModes": [
+    "location"
+  ],
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

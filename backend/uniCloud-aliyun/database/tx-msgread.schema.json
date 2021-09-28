@@ -1,0 +1,27 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+    "description":"用户已读消息",
+	"permission": {
+		"read": "doc.uid == auth.uid",
+		"create": true,
+		"update": "doc.uid == auth.uid",
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+        "uid": {
+        	"label": "用户",
+            "bsonType": "string",
+            "forceDefaultValue": {
+              "$env": "uid"
+            }
+        },
+        "read_list": {
+            "label":"已读消息列表",
+            "bsonType":"array"
+        }
+	}
+}

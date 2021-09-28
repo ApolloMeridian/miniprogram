@@ -1,0 +1,13 @@
+{
+  "name": "TransportX",
+  "version": "1.0.0",
+  "description": "基于 uni-app & uniCloud 的前后一体登录模板",
+  "main": "main.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "uview-ui": "^1.8.3",
+    "vuex-persistedstate": "^4.0.0-beta.3"
+  }
+}

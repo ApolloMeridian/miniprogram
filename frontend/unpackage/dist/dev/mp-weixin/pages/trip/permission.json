@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "后台定位权限设置",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button"
+  }
+}

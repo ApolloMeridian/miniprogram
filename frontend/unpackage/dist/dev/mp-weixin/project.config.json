@@ -1,0 +1,97 @@
+{
+  "description": "项目配置文件。",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "minified": true,
+    "es6": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "",
+  "appid": "wx1f1890e1654805ca",
+  "projectname": "TransportX",
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": 11,
+      "list": [
+        {
+          "name": "我的",
+          "id": 0,
+          "pathName": "pages/user/user"
+        },
+        {
+          "name": "消息",
+          "id": 1,
+          "pathName": "pages/msg/msg"
+        },
+        {
+          "name": "消息详情",
+          "query": "_id=602fe4ec80533800017ad4de",
+          "id": 2,
+          "pathName": "pages/msg/detail"
+        },
+        {
+          "name": "轨迹",
+          "id": 3,
+          "pathName": "pages/trip/trip"
+        },
+        {
+          "name": "个人资料",
+          "id": 4,
+          "pathName": "pages/user/profile"
+        },
+        {
+          "name": "历史轨迹",
+          "id": 5,
+          "pathName": "pages/user/history"
+        },
+        {
+          "name": "编辑轨迹",
+          "query": "index=0",
+          "id": 6,
+          "pathName": "pages/trip/edit"
+        },
+        {
+          "name": "查看数据",
+          "id": 7,
+          "pathName": "pages/user/data"
+        },
+        {
+          "name": "系统设置",
+          "id": 8,
+          "pathName": "pages/user/setting"
+        },
+        {
+          "name": "新手引导",
+          "id": 9,
+          "pathName": "pages/guide/guide"
+        },
+        {
+          "name": "关于我们",
+          "id": 10,
+          "pathName": "pages/user/about"
+        },
+        {
+          "id": 11,
+          "name": "pages/user/about",
+          "pathName": "pages/user/about",
+          "query": ""
+        }
+      ]
+    }
+  }
+}

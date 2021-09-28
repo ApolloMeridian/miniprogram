@@ -1,0 +1,24 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+    "description":"系统设置",
+	"required": ["location_update_duration"],
+	"permission": {
+		"read": true,
+		"create": false,
+		"update": "'superuser' in auth.role",
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+        "location_update_duration": {
+            "bsonType":"int",
+            "label":"用户位置更新间隔时间",
+            "description":"单位：秒",
+            "defaultValue": 10,
+            "errorMessage":"{label}不能为空"
+        }
+	}
+}

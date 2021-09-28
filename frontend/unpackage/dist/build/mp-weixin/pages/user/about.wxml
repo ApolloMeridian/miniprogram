@@ -1,0 +1,1 @@
+<view class="u-content u-p-40 data-v-b5e15b32"><u-parse vue-id="0ab2b778-1" html="{{content}}" tag-style="{{style}}" selectable="{{true}}" class="data-v-b5e15b32" bind:__l="__l"></u-parse></view>

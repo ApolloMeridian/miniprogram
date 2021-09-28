@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "编辑轨迹",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-tag": "/node-modules/uview-ui/components/u-tag/u-tag",
+    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
+    "u-search": "/node-modules/uview-ui/components/u-search/u-search",
+    "u-form": "/node-modules/uview-ui/components/u-form/u-form",
+    "u-form-item": "/node-modules/uview-ui/components/u-form-item/u-form-item",
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
+    "u-select": "/node-modules/uview-ui/components/u-select/u-select"
+  }
+}

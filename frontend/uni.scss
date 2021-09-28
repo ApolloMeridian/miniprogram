@@ -1,0 +1,49 @@
+@import 'uview-ui/theme.scss';
+.u-item-title {
+	position: relative;
+	font-size: 15px;
+	padding-left: 8px;
+	line-height: 1;
+}
+
+.u-item-title:after {
+	position: absolute;
+	width: 4px;
+	top: -1px;
+	height: 16px;
+	content: '';
+	left: 0;
+	border-radius: 10px;
+	background-color: $u-content-color;
+}
+/**
+ * 全宽100vw
+ */
+.cus-full-vw {
+    width: 100vw;
+    box-sizing: border-box;
+}
+// 100%宽
+.cus-full-pw {
+    width: 100%;
+    box-sizing: border-box;
+}
+.flex-col {
+    flex-direction: column;
+}
+.icon-circle {
+    width: 72rpx;
+    height: 72rpx;
+    border-radius: 36rpx;
+    color: #ffffff;
+    font-size: 36rpx;
+}
+.u-row-around {
+    justify-content: space-around;
+}
+.bg-primary {
+    background-color: $u-type-primary;
+}
+.bg-error {
+    background-color: $u-type-error;
+}

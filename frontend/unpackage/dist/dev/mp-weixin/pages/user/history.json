@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "历史轨迹",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "history-unicloud-db-default": "/pages/user/history-unicloud-db-default",
+    "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty",
+    "u-tag": "/node-modules/uview-ui/components/u-tag/u-tag",
+    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "unicloud-db": "/node-modules/@dcloudio/uni-cli-shared/components/unicloud-db",
+    "u-loading": "/node-modules/uview-ui/components/u-loading/u-loading",
+    "u-cell-group": "/node-modules/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/node-modules/uview-ui/components/u-cell-item/u-cell-item",
+    "uni-dateformat": "/uni_modules/uni-dateformat/components/uni-dateformat/uni-dateformat",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button"
+  }
+}

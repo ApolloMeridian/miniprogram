@@ -1,0 +1,1 @@
+<view class="data-v-17bce058"><unicloud-db generic:scoped-slots-default="detail-unicloud-db-default" data-vue-generic="scoped" vue-id="4040a8a4-1" collection="tx-sysmsg" where="{{jql}}" getone="{{true}}" manual="{{true}}" data-ref="udb" class="data-v-17bce058 vue-ref" bind:__l="__l" vue-slots="{{['default']}}"></unicloud-db></view>

@@ -1,0 +1,112 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+    "description":"用户出行记录",
+	"required": ["start_time", "end_time", "raw"],
+	"permission": {
+		"read": "doc.uid == auth.uid || 'superuser' in auth.role",
+		"create": true,
+		"update": "doc.uid == auth.uid",
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+        "uid": {
+        	"label": "用户",
+            "bsonType": "string",
+            "forceDefaultValue": {
+              "$env": "uid"
+            }
+        },
+        "create_time": {
+            "label":"数据创建时间",
+            "bsonType":"timestamp",
+            "forceDefaultValue": {
+                "$env": "now"
+            }
+        },
+        "start_time": {
+            "label":"开始时间",
+            "bsonType":"timestamp"
+        },
+        "end_time": {
+            "label":"结束时间",
+            "bsonType":"timestamp"
+        },
+        "status": {
+            "enum":[
+                "待记录",
+                "待提交",
+                "已提交"
+            ],
+            "label":"数据状态",
+            "forceDefaultValue":"已提交"
+        },
+        "raw": {
+            "bsonType":"array",
+            "properties":{
+                "id": {
+                    "bsonType":"int",
+                    "label":"makerId"
+                },
+                "latitude": {
+                    "bsonType":"double",
+                    "label":"纬度",
+                    "errorMessage": "{label}不能为空"
+                },
+                "longitude": {
+                    "bsonType":"double",
+                    "label":"经度",
+                    "errorMessage": "{label}不能为空"
+                },
+                "time": {
+                    "bsonType":"timestamp",
+                    "label":"时间戳",
+                    "errorMessage": "{label}不能为空"
+                }
+            }
+        },
+        "record": {
+            "bsonType":"array",
+            "properties":{
+                "start_markerId": {
+                    "bsonType":"int",
+                    "label":"路径起点markerId"
+                },
+                "end_markerId": {
+                    "bsonType":"int",
+                    "label":"路径终点markerId"
+                },
+                "transportation": {
+                    "enum":[
+                        "公交车",
+                        "步行",
+                        "自行车",
+                        "地铁",
+                        "汽车",
+                        "公交车",
+                        "飞机",
+                        "高铁"
+                    ],
+                    "label":"出行方式"
+                },
+                "purpose": {
+                    "enum":[
+                        "公务",
+                        "购物餐饮",
+                        "看病探病",
+                        "陪护",
+                        "其他",
+                        "上班",
+                        "探亲访友",
+                        "文体娱乐",
+                        "上学"
+                    ],
+                    "label":"出行目的"
+                }
+            }
+        }
+	}
+}

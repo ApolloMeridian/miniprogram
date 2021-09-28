@@ -1,0 +1,1 @@
+<view class="data-v-d3f05c80"><image src="{{swiperItems[current]}}" mode="scaleToFill" class="data-v-d3f05c80"></image><view data-event-opts="{{[['tap',[['swipe',['$event']]]]]}}" class="swipe data-v-d3f05c80" bindtap="__e">{{current!=2?'下一步':'我知道了'}}</view></view>

@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "消息",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-loading": "/node-modules/uview-ui/components/u-loading/u-loading",
+    "u-cell-group": "/node-modules/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/node-modules/uview-ui/components/u-cell-item/u-cell-item",
+    "u-badge": "/node-modules/uview-ui/components/u-badge/u-badge",
+    "uni-dateformat": "/uni_modules/uni-dateformat/components/uni-dateformat/uni-dateformat"
+  }
+}

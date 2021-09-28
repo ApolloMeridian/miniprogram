@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "数据查看",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
+    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon"
+  }
+}

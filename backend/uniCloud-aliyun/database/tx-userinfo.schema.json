@@ -1,0 +1,79 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"description": "个人资料",
+	"bsonType": "object",
+	"permission": {
+		"read": "doc.uid == auth.uid || 'superuser' in auth.role",
+		"create": true,
+		"update": "doc.uid == auth.uid",
+		"delete": false
+	},
+    "required": ["sex", "age", "education", "occupation", "income_min", "income_max", "private_car", "bicycle", "construction_area", "housing_nature", "total_people"],
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"uid": {
+			"label": "用户",
+            "bsonType": "string",
+            "forceDefaultValue": {
+              "$env": "uid"
+            }
+		},
+        "sex": {
+            "bsonType": "string",
+        	"label": "性别",
+        	"errorMessage": "请输入{label}"
+        },
+        "age": {
+            "bsonType": "string",
+        	"label": "年龄",
+        	"errorMessage": "请输入{label}"
+        },
+        "education": {
+        	"label": "文化程度",
+            "bsonType": "string",
+        	"errorMessage": "请输入{label}"
+        },
+        "occupation": {
+        	"label": "职业",
+            "bsonType": "string",
+        	"errorMessage": "请输入{label}"
+        },
+        "income_min": {
+        	"bsonType": "string",
+        	"label": "收入范围（最低）",
+        	"errorMessage": "{label}不能为空"
+        },
+        "income_max": {
+        	"bsonType": "string",
+        	"label": "收入范围（最高）",
+        	"errorMessage": "{label}不能为空"
+        },
+        "private_car": {
+        	"label": "私人小汽车",
+            "bsonType": "string",
+        	"errorMessage": "请输入{label}"
+        },
+        "construction_area": {
+        	"label": "建筑面积",
+            "bsonType": "string",
+        	"errorMessage": "请输入{label}"
+        },
+        "bicycle": {
+        	"label": "是否拥有自行车",
+            "bsonType": "string",
+        	"errorMessage": "请输入{label}"
+        },
+        "housing_nature": {
+        	"label": "住房性质",
+            "bsonType": "string",
+        	"errorMessage": "请输入{label}"
+        },
+        "total_people": {
+        	"label": "总人数",
+            "bsonType": "string",
+        	"errorMessage": "请输入{label}"
+        }
+	}
+}

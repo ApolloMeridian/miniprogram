@@ -1,0 +1,190 @@
+{
+    "easycom": {
+        "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+    },
+    "pages": [ //pages数组中第一项表示应用启动页,
+        {
+            "path": "pages/trip/trip",
+            "style": {
+                "navigationBarTitleText": "TransportX",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/msg/msg",
+            "style": {
+                "navigationBarTitleText": "消息",
+                "enablePullDownRefresh": true
+            }
+
+        }, {
+            "path": "pages/user/user",
+            "style": {
+                "navigationBarTitleText": "我的",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/user/profile",
+            "style": {
+                "navigationBarTitleText": "个人资料",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/user/history",
+            "style": {
+                "navigationBarTitleText": "历史轨迹",
+                "enablePullDownRefresh": true
+            }
+
+        }, {
+            "path": "pages/user/help",
+            "style": {
+                "navigationBarTitleText": "使用帮助",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/trip/permission",
+            "style": {
+                "navigationBarTitleText": "后台定位权限设置",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/msg/detail",
+            "style": {
+                "navigationBarTitleText": "消息详情",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/trip/edit",
+            "style": {
+                "navigationBarTitleText": "编辑轨迹",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/user/data",
+            "style": {
+                "navigationBarTitleText": "数据查看",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/user/setting",
+            "style": {
+                "navigationBarTitleText": "系统设置",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/user/virtual",
+            "style": {
+                "navigationBarTitleText": "模拟数据",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/guide/guide",
+            "style": {
+                "navigationBarTitleText": "新手引导",
+                "enablePullDownRefresh": false
+            }
+
+        }
+        ,{
+            "path" : "pages/user/about",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "关于我们",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+    "tabBar": {
+        "color": "#c8c9cc",
+        "selectedColor": "#2979ff",
+        "backgroundColor": "#ffffff",
+        "borderStyle": "white",
+        "list": [{
+            "pagePath": "pages/trip/trip",
+            "text": "轨迹",
+            "iconPath": "static/img/tab/trip.png",
+            "selectedIconPath": "static/img/tab/tripHL.png"
+        }, {
+            "pagePath": "pages/user/history",
+            "text": "记录",
+            "iconPath": "static/img/tab/history.png",
+            "selectedIconPath": "static/img/tab/historyHL.png"
+        }, {
+            "pagePath": "pages/msg/msg",
+            "text": "消息",
+            "iconPath": "static/img/tab/msg.png",
+            "selectedIconPath": "static/img/tab/msgHL.png"
+        }, {
+            "pagePath": "pages/user/user",
+            "text": "我的",
+            "iconPath": "static/img/tab/user.png",
+            "selectedIconPath": "static/img/tab/userHL.png"
+        }]
+    },
+    "globalStyle": {
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#2979ff",
+        "backgroundColor": "#fbf9fe"
+    },
+    "condition": {
+        "current": 6,
+        "list": [{
+                "name": "我的",
+                "path": "pages/user/user"
+            },
+            {
+                "name": "消息",
+                "path": "pages/msg/msg"
+            },
+            {
+                "name": "消息详情",
+                "path": "pages/msg/detail",
+                "query": "_id=602fe4ec80533800017ad4de"
+            },
+            {
+                "name": "轨迹",
+                "path": "pages/trip/trip"
+            },
+            {
+                "name": "个人资料",
+                "path": "pages/user/profile"
+            },
+            {
+                "name": "历史轨迹",
+                "path": "pages/user/history"
+            },
+            {
+                "name": "编辑轨迹",
+                "path": "pages/trip/edit",
+                "query": "index=0"
+            },
+            {
+                "name": "查看数据",
+                "path": "pages/user/data"
+            },
+            {
+                "name": "系统设置",
+                "path": "pages/user/setting"
+            },
+            {
+                "name": "新手引导",
+                "path": "pages/guide/guide"
+            },
+            {
+                "name": "关于我们",
+                "path":"pages/user/about"
+            }
+        ]
+    }
+}

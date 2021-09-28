@@ -1,0 +1,8 @@
+// 本文件中的json内容将在云函数【运行】时作为参数传给云函数。
+// 配置教程参考：https://uniapp.dcloud.net.cn/uniCloud/quickstart?id=runparam
+{
+    "openid": "oqCM84-40zaFrngrtqYCpYYKOplU",
+    "title": "TransportX小程序上线啦",
+    "docId": "60347d4e9efdd100018fad08",
+    "time": "2021年2月23日 19:09"
+}
