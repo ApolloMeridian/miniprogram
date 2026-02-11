@@ -1,1 +1,20 @@
-
+Exception in thread "main" org.apache.spark.SparkException: Job aborted due to stage failure: Task 9 in stage 7.0 failed 2 times, most recent failure: Lost task 9.1 in stage 7.0 (TID 79) (10.244.1.88 executor 4): java.lang.NullPointerException: ArrowSchema is already closed
+        at org.apache.arrow.util.Preconditions.checkNotNull(Preconditions.java:801)
+        at org.apache.arrow.c.ArrowSchema.memoryAddress(ArrowSchema.java:121)
+        at com.bydauto.utils.NativeProcessingIterator.finalizeStream(NativeProcessingIterator.scala:207) <--
+        at com.bydauto.utils.NativeProcessingIterator.hasNext(NativeProcessingIterator.scala:293)   <--
+        at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
+        at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+        at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+        at org.apache.spark.sql.execution.datasources.FileFormatWriter$.executeTask(FileFormatWriter.scala:385)
+        at org.apache.spark.sql.execution.datasources.WriteFilesExec.$anonfun$doExecuteWrite$1(WriteFiles.scala:100)
+        at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsInternal$2(RDD.scala:888)
+        at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsInternal$2$adapted(RDD.scala:888)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:364)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:328)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:92)
+        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:161)
+        at org.apache.spark.scheduler.Task.run(Task.scala:139)
+        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$3(Executor.scala:554)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1529)
