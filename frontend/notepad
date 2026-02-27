@@ -1,1 +1,64 @@
-
+I[17:17:48.289] <-- shutdown(76)
+I[17:17:48.289] --> reply:shutdown(76) 0 ms
+I[17:17:48.289] <-- exit
+I[17:17:48.289] LSP finished, exiting with status 0
+[Error - 17:17:48] Server process exited with code 0.
+I[17:17:48.710] clangd version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
+I[17:17:48.713] Features: windows+grpc
+I[17:17:48.713] PID: 43996
+I[17:17:48.713] Working directory: e:\IdeaProject\qb_to_hive_cpp_fast
+I[17:17:48.713] argv[0]: E:\BigData\clangd-windows-21.1.8\clangd_21.1.8\bin\clangd.exe
+I[17:17:48.713] argv[1]: --query-driver=E:/BigData/mingw/w64devkit/bin/*
+I[17:17:48.713] argv[2]: --background-index
+I[17:17:48.713] argv[3]: --clang-tidy
+I[17:17:48.713] argv[4]: --header-insertion=never
+I[17:17:48.734] Starting LSP over stdin/stdout
+I[17:17:48.735] <-- initialize(0)
+I[17:17:48.857] --> reply:initialize(0) 122 ms
+I[17:17:48.858] <-- initialized
+I[17:17:48.862] <-- textDocument/didOpen
+E[17:17:48.947] System include extraction: driver clang not found in PATH
+I[17:17:48.948] <-- textDocument/didOpen
+E[17:17:49.076] System include extraction: driver clang not found in PATH
+I[17:17:49.078] <-- textDocument/documentSymbol(1)
+I[17:17:49.078] <-- textDocument/codeAction(2)
+I[17:17:49.078] <-- textDocument/documentLink(3)
+I[17:17:49.078] <-- textDocument/inlayHint(4)
+I[17:17:49.078] <-- textDocument/foldingRange(5)
+I[17:17:49.086] --> reply:textDocument/foldingRange(5) 8 ms
+I[17:17:49.094] Loaded compilation database from e:\IdeaProject\qb_to_hive_cpp_fast\compile_flags.txt
+I[17:17:49.096] ASTWorker building file e:\IdeaProject\qb_to_hive_cpp_fast\src\main\resources\parsing_utils.hpp version 5 with command 
+[e:\IdeaProject\qb_to_hive_cpp_fast]
+"E:\\BigData\\clangd-windows-21.1.8\\clangd_21.1.8\\bin\\clang-tool" -xc++ -std=c++17 -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/c++ -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/c++/x86_64-w64-mingw32 -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/c++/backward -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include-fixed -I E:/BigData/mingw/w64devkit/include "-resource-dir=E:\\BigData\\clangd-windows-21.1.8\\clangd_21.1.8\\lib\\clang\\21" -- "e:\\IdeaProject\\qb_to_hive_cpp_fast\\src\\main\\resources\\parsing_utils.hpp"
+I[17:17:49.096] ASTWorker building file e:\IdeaProject\qb_to_hive_cpp_fast\src\main\resources\native_bridge.cpp version 1 with command 
+[e:\IdeaProject\qb_to_hive_cpp_fast]
+"E:\\BigData\\clangd-windows-21.1.8\\clangd_21.1.8\\bin\\clang-tool" -xc++ -std=c++17 -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/c++ -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/c++/x86_64-w64-mingw32 -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/c++/backward -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include -I E:/BigData/mingw/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include-fixed -I E:/BigData/mingw/w64devkit/include "-resource-dir=E:\\BigData\\clangd-windows-21.1.8\\clangd_21.1.8\\lib\\clang\\21" -- "e:\\IdeaProject\\qb_to_hive_cpp_fast\\src\\main\\resources\\native_bridge.cpp"
+I[17:17:49.162] <-- textDocument/documentSymbol(6)
+I[17:17:49.174] <-- textDocument/semanticTokens/full(7)
+I[17:17:49.175] --> textDocument/clangd.fileStatus
+I[17:17:49.178] --> textDocument/clangd.fileStatus
+I[17:17:50.382] Built preamble of size 7259172 for file e:\IdeaProject\qb_to_hive_cpp_fast\src\main\resources\parsing_utils.hpp version 5 in 1.20 seconds
+I[17:17:50.388] Indexing c++17 standard library in the context of e:\IdeaProject\qb_to_hive_cpp_fast\src\main\resources\parsing_utils.hpp
+I[17:17:50.389] --> workspace/semanticTokens/refresh(0)
+I[17:17:50.389] --> textDocument/clangd.fileStatus
+I[17:17:50.389] --> textDocument/clangd.fileStatus
+I[17:17:50.391] <-- reply(0)
+I[17:17:50.397] Built preamble of size 7332860 for file e:\IdeaProject\qb_to_hive_cpp_fast\src\main\resources\native_bridge.cpp version 1 in 1.22 seconds
+I[17:17:50.398] --> workspace/semanticTokens/refresh(1)
+I[17:17:50.399] <-- reply(1)
+I[17:17:50.639] --> textDocument/publishDiagnostics
+I[17:17:50.639] --> textDocument/inactiveRegions
+I[17:17:50.641] --> textDocument/clangd.fileStatus
+I[17:17:50.646] --> textDocument/publishDiagnostics
+I[17:17:50.646] --> textDocument/inactiveRegions
+I[17:17:50.662] --> reply:textDocument/documentSymbol(1) 1584 ms
+I[17:17:50.663] --> reply:textDocument/codeAction(2) 1585 ms
+I[17:17:50.664] --> reply:textDocument/documentLink(3) 1585 ms
+I[17:17:50.664] --> reply:textDocument/inlayHint(4) 1586 ms
+I[17:17:50.670] --> reply:textDocument/documentSymbol(6) 1507 ms
+I[17:17:50.676] --> reply:textDocument/semanticTokens/full(7) 1502 ms
+I[17:17:50.676] --> textDocument/clangd.fileStatus
+I[17:17:50.905] <-- textDocument/codeAction(8)
+I[17:17:50.905] --> reply:textDocument/codeAction(8) 0 ms
+I[17:17:50.905] --> textDocument/clangd.fileStatus
+I[17:17:52.106] Indexed c++17 standard library (incomplete due to errors): 21404 symbols, 977 filtere
