@@ -1,4 +1,1 @@
-ed
 
-      quarkus.oidc.tenant-enabled: "true"
-      quarkus.oidc.auth-server-url: "https://10.0.32.109:30443/realms/byd
