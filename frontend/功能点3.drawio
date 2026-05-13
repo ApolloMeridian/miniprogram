@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="4.2.3 Catalog 元数据管理与权限控制逻辑流程图" id="5C7pMfxOiPnF10FzpmHL">
-    <mxGraphModel dx="2965" dy="509" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3386" dy="695" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -22,7 +22,7 @@
         <mxCell id="u2RsvhEDS2MAkszZL_gy-118" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="接口域类型？" vertex="1">
           <mxGeometry height="92" width="190" x="1575" y="2410" as="geometry" />
         </mxCell>
-        <mxCell id="u2RsvhEDS2MAkszZL_gy-119" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="Iceberg 兼容运行接口&amp;nbsp;&lt;div&gt;Namespace 操作&amp;nbsp;&lt;/div&gt;&lt;div&gt;Table 操作&amp;nbsp;&lt;/div&gt;&lt;div&gt;metadata&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;commit、View 管理&lt;/span&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="u2RsvhEDS2MAkszZL_gy-119" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="Iceberg 兼容运行接口&amp;nbsp;&lt;div&gt;Namespace 操作&amp;nbsp;&lt;/div&gt;&lt;div&gt;Table 操作&amp;nbsp;&lt;/div&gt;&lt;div&gt;metadata&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;commit管理&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="118" width="360" x="1140" y="2540" as="geometry" />
         </mxCell>
         <mxCell id="u2RsvhEDS2MAkszZL_gy-120" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="平台管理接口&amp;nbsp;&lt;div&gt;Catalog 创建&amp;nbsp;&lt;/div&gt;&lt;div&gt;对象存储适配器配置&amp;nbsp;&lt;/div&gt;&lt;div&gt;角色权限维护与受控修复&lt;/div&gt;" vertex="1">
@@ -31,7 +31,7 @@
         <mxCell id="u2RsvhEDS2MAkszZL_gy-121" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="生成接口上下文&amp;nbsp;&lt;div&gt;记录调用来源、接口域、操作类型与权限集类型&lt;/div&gt;" vertex="1">
           <mxGeometry height="84" width="420" x="1460" y="2720" as="geometry" />
         </mxCell>
-        <mxCell id="u2RsvhEDS2MAkszZL_gy-122" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="解析资源路径&amp;nbsp;&lt;div&gt;Catalog → Namespace(path) → Table / View&lt;/div&gt;" vertex="1">
+        <mxCell id="u2RsvhEDS2MAkszZL_gy-122" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="解析资源路径&amp;nbsp;&lt;div&gt;Catalog → Namespace(path) → Table&lt;/div&gt;" vertex="1">
           <mxGeometry height="82" width="420" x="2455" y="2199.5" as="geometry" />
         </mxCell>
         <mxCell id="u2RsvhEDS2MAkszZL_gy-123" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="目标资源层级？" vertex="1">
@@ -62,7 +62,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="u2RsvhEDS2MAkszZL_gy-126" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="Table / View 资源定位&lt;div&gt;&amp;nbsp;Iceberg 表或视图逻辑定义&lt;/div&gt;" vertex="1">
+        <mxCell id="u2RsvhEDS2MAkszZL_gy-126" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="Table资源定位&lt;div&gt;&amp;nbsp;Iceberg 表或视图逻辑定义&lt;/div&gt;" vertex="1">
           <mxGeometry height="90" width="230" x="2820" y="2443.5" as="geometry" />
         </mxCell>
         <mxCell id="u2RsvhEDS2MAkszZL_gy-127" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="读取资源当前状态&amp;nbsp;&lt;div&gt;全局 ID、name、owner、&lt;/div&gt;&lt;div&gt;status、tags、时间字段、软删除标记&lt;/div&gt;" vertex="1">
@@ -100,10 +100,10 @@
         <mxCell id="u2RsvhEDS2MAkszZL_gy-134" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="加载 / 查询资源" vertex="1">
           <mxGeometry height="64" width="300" x="2105" y="3108.89" as="geometry" />
         </mxCell>
-        <mxCell id="u2RsvhEDS2MAkszZL_gy-135" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="读取资源模型 Catalog、Namespace、Table / View 层级关系与状态字段" vertex="1">
+        <mxCell id="u2RsvhEDS2MAkszZL_gy-135" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="读取资源模型 Catalog、Namespace、Table层级关系与状态字段" vertex="1">
           <mxGeometry height="96" width="300" x="2105" y="3213.89" as="geometry" />
         </mxCell>
-        <mxCell id="u2RsvhEDS2MAkszZL_gy-136" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="Table / View 详细模型&lt;div&gt;schema、partition spec、sort order current metadata location、snapshot 指针&amp;nbsp;&lt;/div&gt;&lt;div&gt;warehouse 引用与路径策略引用&lt;/div&gt;" vertex="1">
+        <mxCell id="u2RsvhEDS2MAkszZL_gy-136" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="Table详细模型&lt;div&gt;schema、partition spec、sort order current metadata location、snapshot 指针&amp;nbsp;&lt;/div&gt;&lt;div&gt;warehouse 引用与路径策略引用&lt;/div&gt;" vertex="1">
           <mxGeometry height="146" width="300" x="2502" y="3108.89" as="geometry" />
         </mxCell>
         <mxCell id="u2RsvhEDS2MAkszZL_gy-137" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="是否为 metadata commit？" vertex="1">
@@ -183,7 +183,7 @@
         <mxCell id="u2RsvhEDS2MAkszZL_gy-154" edge="1" parent="1" source="u2RsvhEDS2MAkszZL_gy-123" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6b7280;fontSize=18;fontColor=#374151;" target="u2RsvhEDS2MAkszZL_gy-125" value="Namespace">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="u2RsvhEDS2MAkszZL_gy-155" edge="1" parent="1" source="u2RsvhEDS2MAkszZL_gy-123" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#000000;fontSize=18;fontColor=#374151;" target="u2RsvhEDS2MAkszZL_gy-126" value="Table/View">
+        <mxCell id="u2RsvhEDS2MAkszZL_gy-155" edge="1" parent="1" source="u2RsvhEDS2MAkszZL_gy-123" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#000000;fontSize=18;fontColor=#374151;" target="u2RsvhEDS2MAkszZL_gy-126" value="Table">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="u2RsvhEDS2MAkszZL_gy-159" edge="1" parent="1" source="u2RsvhEDS2MAkszZL_gy-127" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6b7280;fontSize=18;fontColor=#374151;" target="u2RsvhEDS2MAkszZL_gy-128" value="">
