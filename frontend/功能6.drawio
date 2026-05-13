@@ -143,7 +143,7 @@
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-41" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="access token即将过期" vertex="1">
           <mxGeometry height="62" width="250" x="1035" y="2030" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-42" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fee2e2;strokeColor=#b91c1c;fontSize=18;fontColor=#7f1d1d;spacing=8;fontStyle=1" value="结束" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-42" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=light-dark(#f8cecc, #392121);strokeColor=#b91c1c;fontSize=18;fontColor=light-dark(#000000, #ffb0b0);spacing=8;fontStyle=1" value="结束" vertex="1">
           <mxGeometry height="90" width="90" x="1635" y="1635" as="geometry" />
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-43" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#475569;endArrow=block;endFill=1;fontSize=18;" target="VJ-j34TL1mvg-IrSlgNE-9" value="">
