@@ -61,20 +61,20 @@
         <mxCell id="o8f6YzWDF4cFtI5g-Obk-135" edge="1" parent="1" source="o8f6YzWDF4cFtI5g-Obk-85" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=light-dark(#999900,#99FFCC);strokeWidth=3;" target="o8f6YzWDF4cFtI5g-Obk-94">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="o8f6YzWDF4cFtI5g-Obk-85" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;arcSize=10;fontSize=18;" value="保持原状态&lt;br&gt;记录审批拒绝原因" vertex="1">
+        <mxCell id="o8f6YzWDF4cFtI5g-Obk-85" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;fontSize=18;" value="保持原状态&lt;br&gt;记录审批拒绝原因" vertex="1">
           <mxGeometry height="60" width="200" x="2340" y="2240" as="geometry" />
         </mxCell>
         <mxCell id="o8f6YzWDF4cFtI5g-Obk-86" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;fontSize=18;" value="解析 alias&#xa;选择当前可用版本" vertex="1">
-          <mxGeometry height="60" width="240" x="2910" y="2067.5" as="geometry" />
+          <mxGeometry height="60" width="240" x="2936" y="2067.5" as="geometry" />
         </mxCell>
         <mxCell id="o8f6YzWDF4cFtI5g-Obk-87" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=18;" value="key 可用?" vertex="1">
-          <mxGeometry height="80" width="110" x="2975" y="2157.5" as="geometry" />
+          <mxGeometry height="80" width="110" x="3001" y="2157.5" as="geometry" />
         </mxCell>
         <mxCell id="o8f6YzWDF4cFtI5g-Obk-88" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;fontSize=18;" value="调用受控密钥库&lt;br&gt;执行加解密" vertex="1">
-          <mxGeometry height="60" width="310" x="2875" y="2277.5" as="geometry" />
+          <mxGeometry height="60" width="210" x="2951" y="2277.5" as="geometry" />
         </mxCell>
         <mxCell id="o8f6YzWDF4cFtI5g-Obk-89" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=18;" value="&lt;font&gt;generateDataKey?&lt;/font&gt;" vertex="1">
-          <mxGeometry height="100" width="150" x="2955" y="2372.5" as="geometry" />
+          <mxGeometry height="100" width="150" x="2981" y="2372.5" as="geometry" />
         </mxCell>
         <mxCell id="o8f6YzWDF4cFtI5g-Obk-90" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;fontSize=18;" value="返回明文 DEK&#xa;+ 密文 DEK" vertex="1">
           <mxGeometry height="60" width="230" x="2680" y="2392.5" as="geometry" />
@@ -83,7 +83,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="o8f6YzWDF4cFtI5g-Obk-91" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;fontSize=18;" value="仅返回rewrap 后密文" vertex="1">
-          <mxGeometry height="60" width="240" x="2910" y="2540" as="geometry" />
+          <mxGeometry height="60" width="240" x="2936" y="2540" as="geometry" />
         </mxCell>
         <mxCell id="o8f6YzWDF4cFtI5g-Obk-132" edge="1" parent="1" source="o8f6YzWDF4cFtI5g-Obk-92" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="o8f6YzWDF4cFtI5g-Obk-131">
           <mxGeometry relative="1" as="geometry" />
