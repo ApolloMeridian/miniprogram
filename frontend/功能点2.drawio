@@ -70,23 +70,17 @@
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="渲染对象存储运行状态视图 支撑扩容、排障和权限问题定位" vertex="1">
           <mxGeometry height="88" width="380" x="156" y="1465" as="geometry" />
         </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="根据变量拼装 PromQL namespace、spark_app_id、workload_type、时间范围" vertex="1">
+        <mxCell id="Jgkl0psMy-UUaOdOSJUL-1" edge="1" parent="1" source="JWdDq6W9hwfwKaYOAWuH-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="JWdDq6W9hwfwKaYOAWuH-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JWdDq6W9hwfwKaYOAWuH-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="根据变量拼装 PromQL namespace、workload_type、时间范围" vertex="1">
           <mxGeometry height="78" width="380" x="1840" y="846" as="geometry" />
         </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-24" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="spark_app_id&lt;div&gt;&amp;nbsp;标签存在？&lt;/div&gt;" vertex="1">
-          <mxGeometry height="100" width="190" x="1935" y="966" as="geometry" />
-        </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="建立 SQL 查询链路关联 Kyuubi 查询 → Spark 作业" vertex="1">
-          <mxGeometry height="76" width="300" x="1740" y="1106" as="geometry" />
-        </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="仅展示运行期资源与状态&lt;div&gt;&amp;nbsp;标记链路标签缺失&lt;/div&gt;" vertex="1">
-          <mxGeometry height="76" width="220" x="2130" y="1106" as="geometry" />
-        </mxCell>
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="展示 Driver / Executor、Pod Phase、重启次数 CPU、内存工作集、磁盘、调度等待、任务持续时间" vertex="1">
-          <mxGeometry height="104" width="380" x="1840" y="1236" as="geometry" />
+          <mxGeometry height="104" width="380" x="1840" y="1056" as="geometry" />
         </mxCell>
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="关联 Loki 日志查询与 Spark History Server 通过 spark_app_id 和 Event Log 路径互补定位" vertex="1">
-          <mxGeometry height="100" width="380" x="1840" y="1376" as="geometry" />
+          <mxGeometry height="100" width="380" x="1840" y="1282" as="geometry" />
         </mxCell>
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="渲染 Spark 作业观察视图 运行期指标 + 日志 + Event Log 回放入口" vertex="1">
           <mxGeometry height="88" width="380" x="1840" y="1511" as="geometry" />
@@ -171,25 +165,6 @@
             </Array>
             <mxPoint x="2029.999999999999" y="760" as="sourcePoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-52" edge="1" parent="1" source="JWdDq6W9hwfwKaYOAWuH-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=light-dark(#000000,#868C98);fontSize=18;fontColor=#374151;" target="JWdDq6W9hwfwKaYOAWuH-24" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-53" edge="1" parent="1" source="JWdDq6W9hwfwKaYOAWuH-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=light-dark(#000000,#868C98);fontSize=18;fontColor=#374151;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="JWdDq6W9hwfwKaYOAWuH-25" value="是">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1890" y="1016" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-54" edge="1" parent="1" source="JWdDq6W9hwfwKaYOAWuH-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=light-dark(#000000,#868C98);fontSize=18;fontColor=#374151;" target="JWdDq6W9hwfwKaYOAWuH-26" value="否">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-55" edge="1" parent="1" source="JWdDq6W9hwfwKaYOAWuH-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=light-dark(#000000,#868C98);fontSize=18;fontColor=#374151;" target="JWdDq6W9hwfwKaYOAWuH-27" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-56" edge="1" parent="1" source="JWdDq6W9hwfwKaYOAWuH-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=light-dark(#000000,#868C98);fontSize=18;fontColor=#374151;" target="JWdDq6W9hwfwKaYOAWuH-27" value="">
-          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-57" edge="1" parent="1" source="JWdDq6W9hwfwKaYOAWuH-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=light-dark(#000000,#868C98);fontSize=18;fontColor=#374151;" target="JWdDq6W9hwfwKaYOAWuH-28" value="">
           <mxGeometry relative="1" as="geometry" />
