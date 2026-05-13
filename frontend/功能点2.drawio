@@ -7,7 +7,7 @@
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#B3B3B3;fontStyle=1;fontColor=#24292f;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=18;arcSize=1;strokeWidth=3;" value="" vertex="1">
           <mxGeometry height="585" width="1020" x="650" y="670" as="geometry" />
         </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#B3B3B3;fontStyle=1;fontColor=#24292f;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=18;arcSize=1;strokeWidth=3;" value="变量体系与看板分流" vertex="1">
+        <mxCell id="JWdDq6W9hwfwKaYOAWuH-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#B3B3B3;fontStyle=1;fontColor=#24292f;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=18;arcSize=1;strokeWidth=3;" value="" vertex="1">
           <mxGeometry height="360" width="1020" x="650" y="1280" as="geometry" />
         </mxCell>
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#B3B3B3;fontStyle=1;fontColor=#24292f;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=18;arcSize=1;strokeWidth=3;" value="" vertex="1">
@@ -231,7 +231,7 @@
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-66" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=20;fontStyle=1" value="&lt;span style=&quot;color: rgb(36, 41, 47);&quot;&gt;指标采集&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47);&quot;&gt;与标签接入&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="85" width="170" x="1484" y="687.5" as="geometry" />
         </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-67" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=20;fontStyle=1" value="&lt;span style=&quot;color: rgb(36, 41, 47);&quot;&gt;指标采集&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47);&quot;&gt;与标签接入&lt;/span&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="JWdDq6W9hwfwKaYOAWuH-67" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=20;fontStyle=1" value="&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px;&quot;&gt;变量体系&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px;&quot;&gt;与看板分流&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="85" width="170" x="1490" y="1310" as="geometry" />
         </mxCell>
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-68" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=20;fontStyle=1" value="&lt;span style=&quot;color: rgb(36, 41, 47);&quot;&gt;Spark 计算任务&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47);&quot;&gt;看板组织&lt;/span&gt;&lt;/div&gt;" vertex="1">
