@@ -19,19 +19,19 @@
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-6" connectable="0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;fontSize=18;fontStyle=1;align=left;verticalAlign=top;spacingTop=8;spacingLeft=12;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#B3B3B3;arcSize=1;" value="" vertex="1">
           <mxGeometry height="310" width="980" x="510" y="1830" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-7" connectable="0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;fontSize=18;fontStyle=1;align=left;verticalAlign=top;spacingTop=8;spacingLeft=12;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#B3B3B3;arcSize=1;" value="异常与边界处理" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-7" connectable="0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;fontSize=18;fontStyle=1;align=left;verticalAlign=top;spacingTop=8;spacingLeft=12;fillColor=#f5f5f5;strokeColor=#666666;arcSize=1;fontColor=#333333;" value="" vertex="1">
           <mxGeometry height="1010" width="360" x="1530" y="720" as="geometry" />
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-8" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=18;spacing=8;fontStyle=1" value="开始" vertex="1">
           <mxGeometry height="90" width="90" x="570" y="482" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-9" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ffffff;strokeColor=#4a5568;fontSize=18;fontColor=#1f2937;spacing=8;" value="创建 Driver Pod" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-9" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="创建 Driver Pod" vertex="1">
           <mxGeometry height="64" width="170" x="699" y="495" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-10" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#e0f2fe;strokeColor=#0284c7;fontSize=18;fontColor=#1f2937;spacing=8;" value="注入 Catalog&lt;br&gt;Auth Proxy" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-10" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="注入 Catalog&lt;br&gt;Auth Proxy" vertex="1">
           <mxGeometry height="64" width="180" x="949" y="495" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-11" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#eff6ff;strokeColor=#2563eb;fontSize=18;fontColor=#1f2937;spacing=8;" value="挂载 ConfigMap&lt;br&gt;与凭证卷" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-11" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="挂载 ConfigMap&lt;br&gt;与凭证卷" vertex="1">
           <mxGeometry height="64" width="170" x="1185" y="495" as="geometry" />
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-83" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="VJ-j34TL1mvg-IrSlgNE-15">
@@ -42,7 +42,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-12" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ecfeff;strokeColor=#0891b2;fontSize=18;fontColor=#1f2937;spacing=8;" value="SparkConf 设置&lt;br&gt;uri=localhost" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-12" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="SparkConf 设置&lt;br&gt;uri=localhost" vertex="1">
           <mxGeometry height="58" width="220" x="1160" y="620" as="geometry" />
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-13" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;strokeWidth=1;fillColor=#fef9c3;strokeColor=#ca8a04;fontSize=18;fontColor=#713f12;spacing=8;" value="仅 Driver 注入；&lt;div&gt;Executor 不参与&amp;nbsp;&lt;/div&gt;&lt;div&gt;Catalog token 刷新&lt;/div&gt;" vertex="1">
@@ -51,61 +51,61 @@
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-14" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;strokeWidth=1;fillColor=#fef9c3;strokeColor=#ca8a04;fontSize=18;fontColor=#713f12;spacing=8;" value="代理脚本版本随 Pod 固定；ConfigMap 新版本仅影响新任务" vertex="1">
           <mxGeometry height="82" width="310" x="1405" y="486" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-15" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ffffff;strokeColor=#4a5568;fontSize=18;fontColor=#1f2937;spacing=8;" value="Proxy 启动" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-15" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="Proxy 启动" vertex="1">
           <mxGeometry height="58" width="160" x="570" y="790" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-16" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeWidth=1.4;fillColor=#fefce8;strokeColor=#ca8a04;fontSize=18;fontColor=#1e3a8a;spacing=8;" value="Kubernetes Secret /&lt;br&gt;受控凭证卷" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-16" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeWidth=1.4;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="Kubernetes Secret /&lt;br&gt;受控凭证卷" vertex="1">
           <mxGeometry height="80" width="190" x="790" y="780" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-17" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ffffff;strokeColor=#4a5568;fontSize=18;fontColor=#1f2937;spacing=8;" value="读取 refresh token" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-17" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="读取 refresh token" vertex="1">
           <mxGeometry height="58" width="190" x="1040" y="790" as="geometry" />
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-85" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=18;" target="VJ-j34TL1mvg-IrSlgNE-19" value="是">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-18" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff7ed;strokeColor=#ea580c;fontSize=18;fontColor=#7c2d12;spacing=6;" value="需要刷新&lt;br&gt;access token?" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-18" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=18;spacing=6;" value="需要刷新&lt;br&gt;access token?" vertex="1">
           <mxGeometry height="90" width="170" x="1290" y="775" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ede9fe;strokeColor=#7c3aed;fontSize=18;fontColor=#3b0764;spacing=8;" value="Keycloak&lt;br&gt;Token Endpoint" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="Keycloak&lt;br&gt;Token Endpoint" vertex="1">
           <mxGeometry height="68" width="190" x="560" y="923.5" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-20" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ffffff;strokeColor=#4a5568;fontSize=18;fontColor=#1f2937;spacing=8;" value="请求换取&lt;br&gt;access token" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-20" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="请求换取&lt;br&gt;access token" vertex="1">
           <mxGeometry height="58" width="190" x="810" y="928.5" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-21" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff7ed;strokeColor=#ea580c;fontSize=18;fontColor=#7c2d12;spacing=6;" value="换取成功?" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-21" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=18;spacing=6;" value="换取成功?" vertex="1">
           <mxGeometry height="90" width="170" x="820" y="1020" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-22" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dcfce7;strokeColor=#16a34a;fontSize=18;fontColor=#1f2937;spacing=8;" value="保存 access token&lt;br&gt;滚动更新 refresh token" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-22" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="保存 access token&lt;br&gt;滚动更新 refresh token" vertex="1">
           <mxGeometry height="64" width="220" x="600" y="1140" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-23" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dcfce7;strokeColor=#16a34a;fontSize=18;fontColor=#1f2937;spacing=8;" value="监听本地端口" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-23" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="监听本地端口" vertex="1">
           <mxGeometry height="56" width="160" x="880" y="1144" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-24" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#fee2e2;strokeColor=#dc2626;fontSize=18;fontColor=#1f2937;spacing=8;" value="Refresh Token&lt;div&gt;安全窗口内重试&lt;/div&gt;" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-24" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="Refresh Token&lt;div&gt;安全窗口内重试&lt;/div&gt;" vertex="1">
           <mxGeometry height="58" width="220" x="1570" y="890" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-25" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff7ed;strokeColor=#ea580c;fontSize=18;fontColor=#7c2d12;spacing=6;" value="超过安全窗口?" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-25" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=18;spacing=6;" value="超过安全窗口?" vertex="1">
           <mxGeometry height="86" width="190" x="1585" y="980" as="geometry" />
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-93" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="VJ-j34TL1mvg-IrSlgNE-42">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-26" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#fecaca;strokeColor=#b91c1c;fontSize=18;fontColor=#1f2937;spacing=8;" value="停止转发 Catalog 请求&lt;div&gt;返回凭证过期错误&lt;/div&gt;" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-26" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="停止转发 Catalog 请求&lt;div&gt;返回凭证过期错误&lt;/div&gt;" vertex="1">
           <mxGeometry height="60" width="205" x="1577.5" y="1130" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-27" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ffffff;strokeColor=#4a5568;fontSize=18;fontColor=#1f2937;spacing=8;" value="Driver 发起&lt;br&gt;Table/Namespace/Commit" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-27" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="Driver 发起&lt;br&gt;Table/Namespace/Commit" vertex="1">
           <mxGeometry height="72" width="220" x="570" y="1356" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-28" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ffffff;strokeColor=#4a5568;fontSize=18;fontColor=#1f2937;spacing=8;" value="Proxy 接收请求&lt;br&gt;保留 method/path/body" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-28" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="Proxy 接收请求&lt;br&gt;保留 method/path/body" vertex="1">
           <mxGeometry height="66" width="220" x="855" y="1358" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-29" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ffffff;strokeColor=#4a5568;fontSize=18;fontColor=#1f2937;spacing=8;" value="清理连接类 Header" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-29" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="清理连接类 Header" vertex="1">
           <mxGeometry height="58" width="185" x="1140" y="1363" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-30" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ecfeff;strokeColor=#0891b2;fontSize=18;fontColor=#1f2937;spacing=8;" value="注入 Authorization" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-30" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="注入 Authorization" vertex="1">
           <mxGeometry height="58" width="200" x="570" y="1498" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-31" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ede9fe;strokeColor=#7c3aed;fontSize=18;fontColor=#3b0764;spacing=8;" value="REST Catalog" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-31" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="REST Catalog" vertex="1">
           <mxGeometry height="72" width="210" x="855" y="1491" as="geometry" />
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-88" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=18;" target="VJ-j34TL1mvg-IrSlgNE-33" value="是">
@@ -113,34 +113,34 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-32" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff7ed;strokeColor=#ea580c;fontSize=18;fontColor=#7c2d12;spacing=6;" value="OIDC/RBAC&lt;br&gt;通过?" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-32" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=18;spacing=6;" value="OIDC/RBAC&lt;br&gt;通过?" vertex="1">
           <mxGeometry height="90" width="170" x="1165" y="1483" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-33" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dcfce7;strokeColor=#16a34a;fontSize=18;fontColor=#1f2937;spacing=8;" value="原样返回 Iceberg 响应" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-33" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="原样返回 Iceberg 响应" vertex="1">
           <mxGeometry height="60" width="220" x="855" y="1643" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-34" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;strokeWidth=1;fillColor=#fef9c3;strokeColor=#ca8a04;fontSize=18;fontColor=#713f12;spacing=8;" value="代理不缓存元数据，不做权限判断，不改写响应" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-34" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;strokeWidth=1;fillColor=light-dark(#fef9c3, #212100);strokeColor=#36393d;fontSize=18;spacing=8;" value="代理不缓存元数据，不做权限判断，不改写响应" vertex="1">
           <mxGeometry height="82" width="220" x="1140" y="1256" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-35" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#fee2e2;strokeColor=#dc2626;fontSize=18;fontColor=#1f2937;spacing=8;" value="返回无权限错误&lt;br&gt;权限撤销实时生效" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-35" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="返回无权限错误&lt;br&gt;权限撤销实时生效" vertex="1">
           <mxGeometry height="68" width="220" x="1570" y="1493" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-37" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff7ed;strokeColor=#ea580c;fontSize=18;fontColor=#7c2d12;spacing=6;" value="Driver Pod&lt;br&gt;仍在运行?" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-37" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=18;spacing=6;" value="Driver Pod&lt;br&gt;仍在运行?" vertex="1">
           <mxGeometry height="92" width="170" x="720" y="1900" as="geometry" />
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-95" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="VJ-j34TL1mvg-IrSlgNE-40">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-38" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ffedd5;strokeColor=#f97316;fontSize=18;fontColor=#1f2937;spacing=8;" value="继续使用最新 token&lt;br&gt;访问 Catalog" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-38" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="继续使用最新 token&lt;br&gt;访问 Catalog" vertex="1">
           <mxGeometry height="58" width="220" x="695" y="2032" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-39" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#ffffff;strokeColor=#4a5568;fontSize=18;fontColor=#1f2937;spacing=8;" value="Proxy 随 Driver Pod 结束" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-39" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="Proxy 随 Driver Pod 结束" vertex="1">
           <mxGeometry height="58" width="220" x="1040" y="1917" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-40" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#dcfce7;strokeColor=#15803d;fontSize=18;fontColor=#14532d;spacing=8;fontStyle=1" value="结束" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-40" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#f8cecc;strokeColor=#b85450;fontSize=18;spacing=8;fontStyle=1" value="结束" vertex="1">
           <mxGeometry height="90" width="90" x="1385" y="1900" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-41" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#fef9c3;strokeColor=#ca8a04;fontSize=18;fontColor=#1f2937;spacing=8;" value="access token即将过期" vertex="1">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-41" parent="1" style="whiteSpace=wrap;html=1;strokeWidth=1.4;rounded=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;spacing=8;" value="access token即将过期" vertex="1">
           <mxGeometry height="62" width="250" x="1035" y="2030" as="geometry" />
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-42" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fee2e2;strokeColor=#b91c1c;fontSize=18;fontColor=#7f1d1d;spacing=8;fontStyle=1" value="结束" vertex="1">
@@ -311,6 +311,9 @@
         </mxCell>
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-92" parent="1" style="text;whiteSpace=wrap;html=1;fontSize=20;align=center;fontStyle=1" value="&lt;span style=&quot;color: rgb(51, 51, 51); font-size: 18px; text-align: left;&quot;&gt;长周期任务边界&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(51, 51, 51); font-size: 18px; text-align: left;&quot;&gt;与结束条件&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="150" x="510" y="1840" as="geometry" />
+        </mxCell>
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-96" parent="1" style="text;whiteSpace=wrap;html=1;fontSize=20;align=center;fontStyle=1" value="&lt;span style=&quot;color: rgb(51, 51, 51); font-size: 18px; text-align: left;&quot;&gt;异常与边界处理&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="1540" y="730" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
