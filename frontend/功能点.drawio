@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="4.2.1 容器日志采集与处理" id="iyz3mbV9Io5REmduyehB">
-    <mxGraphModel dx="2620" dy="356" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+    <mxGraphModel dx="2090" dy="122" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -58,7 +58,7 @@
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;fontStyle=0" value="生成统一标签模型&lt;br&gt;cluster、namespace、pod、container、pod_ip、app、spark_app_id、tenant" vertex="1">
           <mxGeometry height="92" width="340" x="1680" y="2505" as="geometry" />
         </mxCell>
-        <mxCell id="Tp3sZvQ8O7xG5G85A9PY-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;fontStyle=0" value="按 spark_app_id 建立关联&lt;br&gt;Kyuubi 查询、Spark Driver、Executor、Event Log" vertex="1">
+        <mxCell id="Tp3sZvQ8O7xG5G85A9PY-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;fontStyle=0" value="按 spark_app_id 建立spark任务容器关联&lt;br&gt;Spark Driver、Executor、Event Log" vertex="1">
           <mxGeometry height="82" width="340" x="2453" y="1509" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;fontStyle=0" value="写入 Loki Gateway" vertex="1">
@@ -142,7 +142,7 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="2420" y="2551" />
-              <mxPoint x="2420" y="1513" />
+              <mxPoint x="2420" y="1550" />
             </Array>
           </mxGeometry>
         </mxCell>
