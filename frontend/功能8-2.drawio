@@ -46,13 +46,13 @@
         <mxCell id="rPJj-J_itgddcwcwA4ID-14" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#FFB570;fontSize=18;" value="操作类型?" vertex="1">
           <mxGeometry height="80" width="110" x="590" y="845" as="geometry" />
         </mxCell>
-        <mxCell id="rPJj-J_itgddcwcwA4ID-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;arcSize=10;fontSize=18;" value="写入：KES 获取 DEK&#xa;对象服务端加密" vertex="1">
+        <mxCell id="rPJj-J_itgddcwcwA4ID-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;arcSize=10;fontSize=18;" value="KES 获取 DEK&lt;br&gt;对象服务端加密" vertex="1">
           <mxGeometry height="60" width="290" x="400" y="965" as="geometry" />
         </mxCell>
         <mxCell id="rPJj-J_itgddcwcwA4ID-16" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#000000;fontSize=18;" value="保存对象 + 密文 DEK&#xa;写入对象元数据" vertex="1">
           <mxGeometry height="60" width="290" x="400" y="1065" as="geometry" />
         </mxCell>
-        <mxCell id="rPJj-J_itgddcwcwA4ID-17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;arcSize=10;fontSize=18;" value="读取：解封密文 DEK&#xa;服务端解密对象" vertex="1">
+        <mxCell id="rPJj-J_itgddcwcwA4ID-17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;arcSize=10;fontSize=18;" value="解封密文 DEK&lt;br&gt;服务端解密对象" vertex="1">
           <mxGeometry height="60" width="290" x="705" y="965" as="geometry" />
         </mxCell>
         <mxCell id="rPJj-J_itgddcwcwA4ID-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;arcSize=10;fontSize=18;" value="返回对象内容&#xa;不暴露密钥材料" vertex="1">
@@ -76,10 +76,10 @@
         <mxCell id="rPJj-J_itgddcwcwA4ID-23" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#FFB570;fontSize=18;" value="资源操作?" vertex="1">
           <mxGeometry height="80" width="110" x="1215" y="935" as="geometry" />
         </mxCell>
-        <mxCell id="rPJj-J_itgddcwcwA4ID-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;arcSize=10;fontSize=18;" value="写入：加密 Secret&#xa;再落 etcd" vertex="1">
+        <mxCell id="rPJj-J_itgddcwcwA4ID-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;arcSize=10;fontSize=18;" value="加密 Secret&lt;br&gt;再落 etcd" vertex="1">
           <mxGeometry height="60" width="270" x="1030" y="1065" as="geometry" />
         </mxCell>
-        <mxCell id="rPJj-J_itgddcwcwA4ID-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;arcSize=10;fontSize=18;" value="读取：从 etcd 取出&#xa;再解密返回" vertex="1">
+        <mxCell id="rPJj-J_itgddcwcwA4ID-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;arcSize=10;fontSize=18;" value="从 etcd 取出&lt;br&gt;再解密返回" vertex="1">
           <mxGeometry height="60" width="270" x="1340" y="1065" as="geometry" />
         </mxCell>
         <mxCell id="rPJj-J_itgddcwcwA4ID-26" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#FFB570;fontSize=18;" value="轮转事件?" vertex="1">
@@ -118,7 +118,9 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="rPJj-J_itgddcwcwA4ID-36" edge="1" parent="1" source="rPJj-J_itgddcwcwA4ID-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=2;fontSize=18;" target="rPJj-J_itgddcwcwA4ID-19" value="etcd">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" x="-0.6339" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="rPJj-J_itgddcwcwA4ID-37" edge="1" parent="1" source="rPJj-J_itgddcwcwA4ID-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=2;fontSize=18;" target="rPJj-J_itgddcwcwA4ID-12" value="">
           <mxGeometry relative="1" as="geometry" />
