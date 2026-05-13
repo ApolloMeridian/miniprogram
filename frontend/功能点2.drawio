@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="4.2.2 监控指标可视化看板逻辑流程图" id="EZsW_e0Uatml9CvFeSt6">
-    <mxGraphModel dx="5040" dy="1864" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4274" dy="1525" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -31,7 +31,7 @@
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="追加统一指标标签 site、cluster、bucket、tenant、namespace、spark_app_id" vertex="1">
           <mxGeometry height="88" width="340" x="792" y="1000" as="geometry" />
         </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-10" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="关键标签 是否完整？" vertex="1">
+        <mxCell id="JWdDq6W9hwfwKaYOAWuH-10" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="关键标签&lt;div&gt;&amp;nbsp;是否完整？&lt;/div&gt;" vertex="1">
           <mxGeometry height="92" width="190" x="867" y="1125" as="geometry" />
         </mxCell>
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="标记为不可查询&amp;nbsp;&lt;div&gt;等待下一轮采集修正标签&lt;/div&gt;" vertex="1">
@@ -73,7 +73,7 @@
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="根据变量拼装 PromQL namespace、spark_app_id、workload_type、时间范围" vertex="1">
           <mxGeometry height="78" width="380" x="1840" y="846" as="geometry" />
         </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-24" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="Kyuubi 查询 ID 与 spark_app_id 标签存在？" vertex="1">
+        <mxCell id="JWdDq6W9hwfwKaYOAWuH-24" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="spark_app_id&lt;div&gt;&amp;nbsp;标签存在？&lt;/div&gt;" vertex="1">
           <mxGeometry height="100" width="190" x="1935" y="966" as="geometry" />
         </mxCell>
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="建立 SQL 查询链路关联 Kyuubi 查询 → Spark 作业" vertex="1">
@@ -94,7 +94,7 @@
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="按变量与时间范围筛选输出结果 统一呈现 Prometheus 指标与 Loki 日志入口" vertex="1">
           <mxGeometry height="88" width="460" x="880" y="1722" as="geometry" />
         </mxCell>
-        <mxCell id="JWdDq6W9hwfwKaYOAWuH-31" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="面板数据与 日志 / Event Log 关联有效？" vertex="1">
+        <mxCell id="JWdDq6W9hwfwKaYOAWuH-31" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="面板数据与&lt;div&gt;日志 / Event Log 关联有效？&lt;/div&gt;" vertex="1">
           <mxGeometry height="100" width="190" x="1015" y="1857" as="geometry" />
         </mxCell>
         <mxCell id="JWdDq6W9hwfwKaYOAWuH-32" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="提示标签缺失、查询范围不匹配 或数据源采集异常" vertex="1">
