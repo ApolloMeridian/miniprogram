@@ -179,11 +179,10 @@
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-55" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#475569;endArrow=block;endFill=1;fontSize=18;" target="VJ-j34TL1mvg-IrSlgNE-21" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="VJ-j34TL1mvg-IrSlgNE-56" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#475569;endArrow=block;endFill=1;fontSize=18;" target="VJ-j34TL1mvg-IrSlgNE-22" value="是">
+        <mxCell id="VJ-j34TL1mvg-IrSlgNE-56" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#475569;endArrow=block;endFill=1;fontSize=18;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="VJ-j34TL1mvg-IrSlgNE-22" value="是">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="905" y="1120" />
-              <mxPoint x="710" y="1120" />
+              <mxPoint x="710" y="1065" />
             </Array>
           </mxGeometry>
         </mxCell>
