@@ -216,17 +216,17 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="dAbQs9HOA6jdFWA3dH13-69" parent="1" style="text;whiteSpace=wrap;html=1;fontSize=20;align=center;" value="&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px; font-weight: 700;&quot;&gt;入口认证&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px; font-weight: 700;&quot;&gt;与会话主体&lt;/span&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="dAbQs9HOA6jdFWA3dH13-69" parent="1" style="text;whiteSpace=wrap;html=1;fontSize=20;align=center;" value="&lt;span style=&quot;color: rgb(36, 41, 47); font-weight: 700;&quot;&gt;入口认证&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47); font-weight: 700;&quot;&gt;与会话主体&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="150" x="760" y="320" as="geometry" />
         </mxCell>
-        <mxCell id="dAbQs9HOA6jdFWA3dH13-70" parent="1" style="text;whiteSpace=wrap;html=1;align=center;" value="&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px; font-weight: 700;&quot;&gt;Kyuubi 会话路由&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px; font-weight: 700;&quot;&gt;与 Spark执行&lt;/span&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="50" width="200" x="1574" y="320" as="geometry" />
+        <mxCell id="dAbQs9HOA6jdFWA3dH13-70" parent="1" style="text;whiteSpace=wrap;html=1;align=center;fontSize=20;" value="&lt;span style=&quot;color: rgb(36, 41, 47); font-weight: 700;&quot;&gt;Kyuubi 会话路由&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47); font-weight: 700;&quot;&gt;与 Spark执行&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="200" x="1481" y="330" as="geometry" />
         </mxCell>
-        <mxCell id="dAbQs9HOA6jdFWA3dH13-72" parent="1" style="text;whiteSpace=wrap;html=1;fontSize=20;align=center;" value="&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px; font-weight: 700;&quot;&gt;REST Catalog&amp;nbsp;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px; font-weight: 700;&quot;&gt;表级鉴权&lt;/span&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="dAbQs9HOA6jdFWA3dH13-72" parent="1" style="text;whiteSpace=wrap;html=1;fontSize=20;align=center;" value="&lt;span style=&quot;color: rgb(36, 41, 47); font-weight: 700;&quot;&gt;REST Catalog&amp;nbsp;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47); font-weight: 700;&quot;&gt;表级鉴权&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="150" x="794" y="865" as="geometry" />
         </mxCell>
-        <mxCell id="dAbQs9HOA6jdFWA3dH13-74" parent="1" style="text;whiteSpace=wrap;html=1;fontSize=20;align=center;" value="&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px; font-weight: 700;&quot;&gt;对象存储&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47); font-size: 18px; font-weight: 700;&quot;&gt;路径级访问控制&lt;/span&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="70" width="150" x="1484" y="865" as="geometry" />
+        <mxCell id="dAbQs9HOA6jdFWA3dH13-74" parent="1" style="text;whiteSpace=wrap;html=1;fontSize=20;align=center;" value="&lt;span style=&quot;color: rgb(36, 41, 47); font-weight: 700;&quot;&gt;对象存储&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47); font-weight: 700;&quot;&gt;路径级访问控制&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="1506" y="865" as="geometry" />
         </mxCell>
         <mxCell id="dAbQs9HOA6jdFWA3dH13-76" edge="1" parent="1" source="dAbQs9HOA6jdFWA3dH13-21" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#57606a;endArrow=block;endFill=1;fontColor=#57606a;fontSize=18;" target="dAbQs9HOA6jdFWA3dH13-75" value="">
           <mxGeometry relative="1" as="geometry">
