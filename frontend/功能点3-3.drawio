@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="4.2.3-3 OIDC 身份解析、RBAC 授权与并发一致性逻辑流程图" id="V62lorDaK2fYhzqy-UbR">
-    <mxGraphModel dx="4740" dy="2098" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3792" dy="1678" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -72,16 +72,13 @@
         <mxCell id="vjNkm-SmmKy7oZqfluUP-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="执行授权读操作 返回最新资源、权限或表元数据视图" vertex="1">
           <mxGeometry height="82" width="340" x="940" y="1157" as="geometry" />
         </mxCell>
-        <mxCell id="vjNkm-SmmKy7oZqfluUP-78" edge="1" parent="1" source="vjNkm-SmmKy7oZqfluUP-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=18;" target="vjNkm-SmmKy7oZqfluUP-25" value="否">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1580" y="1208" />
-              <mxPoint x="1580" y="1185" />
-            </Array>
+        <mxCell id="Be9HyvDFKMPmNZ0YZevg-1" edge="1" parent="1" source="vjNkm-SmmKy7oZqfluUP-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=18;" target="vjNkm-SmmKy7oZqfluUP-25" value="否">
+          <mxGeometry relative="1" x="-0.2973" y="-2" as="geometry">
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="vjNkm-SmmKy7oZqfluUP-20" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="是否为Iceberg metadata commit？" vertex="1">
-          <mxGeometry height="102" width="190" x="1345" y="1157" as="geometry" />
+          <mxGeometry height="102" width="190" x="1345" y="1147" as="geometry" />
         </mxCell>
         <mxCell id="vjNkm-SmmKy7oZqfluUP-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="读取当前 metadata version 或 snapshot 指针" vertex="1">
           <mxGeometry height="76" width="320" x="1280" y="1312" as="geometry" />
@@ -95,14 +92,14 @@
         <mxCell id="vjNkm-SmmKy7oZqfluUP-23" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;" value="期望版本与当前版本 是否一致？" vertex="1">
           <mxGeometry height="110" width="190" x="1345" y="1542" as="geometry" />
         </mxCell>
-        <mxCell id="vjNkm-SmmKy7oZqfluUP-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="返回冲突状态与最新版本信息 由 Spark / Iceberg 重试机制处理" vertex="1">
+        <mxCell id="vjNkm-SmmKy7oZqfluUP-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="返回冲突状态与最新版本信息&amp;nbsp;&lt;div&gt;由 Spark / Iceberg 重试机制处理&lt;/div&gt;" vertex="1">
           <mxGeometry height="92" width="320" x="930" y="1552" as="geometry" />
         </mxCell>
         <mxCell id="vjNkm-SmmKy7oZqfluUP-77" edge="1" parent="1" source="vjNkm-SmmKy7oZqfluUP-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=18;" target="vjNkm-SmmKy7oZqfluUP-26">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="vjNkm-SmmKy7oZqfluUP-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="开启 PostgreSQL 事务 在同一请求上下文内处理 metadata location、snapshot、资源状态或 RBAC 变更" vertex="1">
-          <mxGeometry height="116" width="380" x="1720" y="1127" as="geometry" />
+          <mxGeometry height="116" width="380" x="1720" y="1140" as="geometry" />
         </mxCell>
         <mxCell id="vjNkm-SmmKy7oZqfluUP-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="应用唯一索引与事务约束 保障 catalog、namespace path、table name、权限变更一致" vertex="1">
           <mxGeometry height="104" width="380" x="1720" y="1317" as="geometry" />
@@ -116,7 +113,7 @@
         <mxCell id="vjNkm-SmmKy7oZqfluUP-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="回滚事务&amp;nbsp;&lt;div&gt;记录失败上下文并返回错误&lt;/div&gt;" vertex="1">
           <mxGeometry height="82" width="250" x="1920" y="1630" as="geometry" />
         </mxCell>
-        <mxCell id="vjNkm-SmmKy7oZqfluUP-29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="提交成功 更新元数据版本、&lt;div&gt;snapshot 指针或权限状态&lt;/div&gt;" vertex="1">
+        <mxCell id="vjNkm-SmmKy7oZqfluUP-29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;align=center;verticalAlign=middle;spacing=8;" value="提交成功&amp;nbsp;&lt;div&gt;更新元数据版本、&lt;div&gt;snapshot 指针或权限状态&lt;/div&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="88" width="250" x="1620" y="1630" as="geometry" />
         </mxCell>
         <mxCell id="vjNkm-SmmKy7oZqfluUP-75" edge="1" parent="1" source="vjNkm-SmmKy7oZqfluUP-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=18;" target="vjNkm-SmmKy7oZqfluUP-32">
