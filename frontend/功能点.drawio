@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="4.2.1 容器日志采集与处理" id="iyz3mbV9Io5REmduyehB">
-    <mxGraphModel dx="2965" dy="509" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+    <mxGraphModel dx="2620" dy="356" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -11,10 +11,10 @@
           <mxGeometry height="630" width="1050" x="1340" y="1990" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=light-dark(#000000, #30363c);fontStyle=1;fontColor=#24292f;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=16;arcSize=1;strokeWidth=3;" value="" vertex="1">
-          <mxGeometry height="635" width="1050" x="2430" y="1420" as="geometry" />
+          <mxGeometry height="635" width="830" x="2430" y="1420" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=light-dark(#000000, #30363c);fontStyle=1;fontColor=#24292f;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=16;arcSize=1;strokeWidth=3;" value="" vertex="1">
-          <mxGeometry height="546.5" width="1050" x="2430" y="2073.5" as="geometry" />
+          <mxGeometry height="546.5" width="830" x="2430" y="2073.5" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-5" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=16;fontColor=#1f2937;align=center;verticalAlign=middle;" value="开始" vertex="1">
           <mxGeometry height="80" width="80" x="1810" y="1450" as="geometry" />
@@ -68,16 +68,16 @@
           <mxGeometry height="90" width="180" x="2533" y="1733" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;fontStyle=1" value="触发客户端缓冲与重试机制&lt;br&gt;保持标签和时间戳不变" vertex="1">
-          <mxGeometry height="82" width="300" x="2853" y="1734" as="geometry" />
+          <mxGeometry height="82" width="300" x="2955" y="1737" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-23" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;fontStyle=1" value="重试恢复？" vertex="1">
-          <mxGeometry height="90" width="180" x="2913" y="1843" as="geometry" />
+          <mxGeometry height="90" width="180" x="3015" y="1843" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;fontStyle=1" value="补发缓存日志至 Loki Gateway" vertex="1">
-          <mxGeometry height="64" width="300" x="2853" y="1975" as="geometry" />
+          <mxGeometry height="64" width="300" x="2955" y="1975" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;fontStyle=1" value="记录采集异常&lt;br&gt;保留待重试状态并等待下一轮" vertex="1">
-          <mxGeometry height="76" width="300" x="3123" y="1850" as="geometry" />
+          <mxGeometry height="76" width="300" x="2670" y="1850" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-26" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontColor=#1f2937;align=center;verticalAlign=middle;spacing=8;fontStyle=1" value="Loki 存储日志流&lt;br&gt;并建立标签索引" vertex="1">
           <mxGeometry height="82" width="340" x="2453" y="1966" as="geometry" />
@@ -162,12 +162,16 @@
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-51" edge="1" parent="1" source="Tp3sZvQ8O7xG5G85A9PY-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;fontSize=16;fontColor=#24292f;endArrow=block;endFill=1;strokeWidth=3;fontStyle=1" target="Tp3sZvQ8O7xG5G85A9PY-24" value="是">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Tp3sZvQ8O7xG5G85A9PY-52" edge="1" parent="1" source="Tp3sZvQ8O7xG5G85A9PY-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;fontSize=16;fontColor=#24292f;endArrow=block;endFill=1;strokeWidth=3;fontStyle=1" target="Tp3sZvQ8O7xG5G85A9PY-26" value="">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="Tp3sZvQ8O7xG5G85A9PY-52" edge="1" parent="1" source="Tp3sZvQ8O7xG5G85A9PY-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;fontSize=16;fontColor=#24292f;endArrow=block;endFill=1;strokeWidth=3;fontStyle=1" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2794" y="2007.0000000000002" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="Tp3sZvQ8O7xG5G85A9PY-53" edge="1" parent="1" source="Tp3sZvQ8O7xG5G85A9PY-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;fontSize=16;fontColor=#24292f;endArrow=block;endFill=1;strokeWidth=3;fontStyle=1" target="Tp3sZvQ8O7xG5G85A9PY-25" value="否">
-          <mxGeometry relative="1" x="0.36" as="geometry">
+        <mxCell id="Tp3sZvQ8O7xG5G85A9PY-53" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;fontSize=16;fontColor=#24292f;endArrow=block;endFill=1;strokeWidth=3;fontStyle=1;" target="Tp3sZvQ8O7xG5G85A9PY-25" value="否">
+          <mxGeometry relative="1" x="0.2982" as="geometry">
             <mxPoint as="offset" />
+            <mxPoint x="3017" y="1888" as="sourcePoint" />
+            <mxPoint x="2957" y="1888" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-54" edge="1" parent="1" source="Tp3sZvQ8O7xG5G85A9PY-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;fontSize=16;fontColor=#24292f;endArrow=block;endFill=1;strokeWidth=3;fontStyle=1" target="Tp3sZvQ8O7xG5G85A9PY-27" value="">
@@ -189,10 +193,10 @@
           <mxGeometry height="85" width="170" x="1420" y="1430" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-62" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=20;fontStyle=1" value="&lt;span style=&quot;color: rgb(36, 41, 47);&quot;&gt;&lt;font&gt;Loki 写入&lt;/font&gt;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(36, 41, 47);&quot;&gt;&lt;font&gt;与恢复处理&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="85" width="170" x="3130" y="1447.5" as="geometry" />
+          <mxGeometry height="85" width="170" x="3025" y="1450" as="geometry" />
         </mxCell>
         <mxCell id="Tp3sZvQ8O7xG5G85A9PY-63" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=20;fontStyle=1" value="&lt;span style=&quot;color: rgb(36, 41, 47);&quot;&gt;&lt;font&gt;Grafana 查询组织&lt;/font&gt;&lt;/span&gt;" vertex="1">
-          <mxGeometry height="85" width="170" x="3130" y="2087.5" as="geometry" />
+          <mxGeometry height="85" width="170" x="3020" y="2087.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
