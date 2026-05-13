@@ -273,8 +273,7 @@
         <mxCell id="VJ-j34TL1mvg-IrSlgNE-75" edge="1" parent="1" source="VJ-j34TL1mvg-IrSlgNE-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#475569;endArrow=block;endFill=1;fontSize=18;" target="VJ-j34TL1mvg-IrSlgNE-37" value="">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="965" y="1770" />
-              <mxPoint x="805" y="1770" />
+              <mxPoint x="805" y="1673" />
             </Array>
           </mxGeometry>
         </mxCell>
