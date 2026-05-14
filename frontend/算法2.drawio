@@ -34,7 +34,7 @@
         <mxCell id="Ah-K4p36LesJGpR8TBD7-513" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-444" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="Ah-K4p36LesJGpR8TBD7-512">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-444" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" value="认证失败&#xa;不渲染凭证" vertex="1">
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-444" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="认证失败&#xa;不渲染凭证" vertex="1">
           <mxGeometry height="55" width="150" x="-400" y="45" as="geometry" />
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-445" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="写入 vault token" vertex="1">
@@ -223,7 +223,7 @@
             <mxPoint x="-550" y="30" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-495" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" value="Vault policy 校验&lt;br&gt;SA / namespace / audience / role" vertex="1">
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-495" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="Vault policy 校验&lt;br&gt;SA / namespace / audience / role" vertex="1">
           <mxGeometry height="55" width="150" x="-625" y="-55" as="geometry" />
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-497" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="渲染 aws-credentials&#xa;credential_process" vertex="1">
