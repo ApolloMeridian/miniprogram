@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="4.2.7 对象存储 STS 凭证刷新代码逻辑流程图" id="KiK1RAeMjJRWfBPQ5I7s">
-    <mxGraphModel dx="3536" dy="2368" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3744" dy="2460" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -15,9 +15,6 @@
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-436" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;" value="Operator / Driver / Executor&#xa;Pod 启动" vertex="1">
           <mxGeometry height="110" width="110" x="-690" y="-430" as="geometry" />
-        </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-437" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" value="挂载 /vault/config&#xa;与 /vault/secrets" vertex="1">
-          <mxGeometry height="60" width="170" x="-480" y="-405" as="geometry" />
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-438" parent="1" style="shape=process;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;size=0.03448275862069122;" value="设置 AWS_PROFILE&#xa;AWS_SHARED_CREDENTIALS_FILE" vertex="1">
           <mxGeometry height="60" width="290" x="-240" y="-405" as="geometry" />
@@ -61,7 +58,7 @@
         <mxCell id="Ah-K4p36LesJGpR8TBD7-511" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-452" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="Ah-K4p36LesJGpR8TBD7-505">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-452" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" value="等待超时&#xa;Pod 启动失败" vertex="1">
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-452" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="等待超时&#xa;Pod 启动失败" vertex="1">
           <mxGeometry height="55" width="150" x="595" y="-205" as="geometry" />
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-453" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="启动 spark-submit&#xa;或 Spark 主进程" vertex="1">
@@ -73,11 +70,8 @@
         <mxCell id="Ah-K4p36LesJGpR8TBD7-455" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="ProfileCredentialsProvider&#xa;读取 aws-credentials" vertex="1">
           <mxGeometry height="60" width="210" x="295" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-456" parent="1" style="shape=process;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;" value="执行 credential_process&#xa;sh get-sts.sh" vertex="1">
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-456" parent="1" style="shape=process;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;size=0.07142857142857359;" value="执行 credential_process&#xa;sh get-sts.sh" vertex="1">
           <mxGeometry height="60" width="210" x="295" y="175" as="geometry" />
-        </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-457" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" value="读取 minio-jwt" vertex="1">
-          <mxGeometry height="50" width="160" x="60" y="265" as="geometry" />
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-458" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="调用 MinIO STS&#xa;AssumeRoleWithWebIdentity" vertex="1">
           <mxGeometry height="60" width="210" x="295" y="260" as="geometry" />
@@ -88,17 +82,18 @@
         <mxCell id="Ah-K4p36LesJGpR8TBD7-510" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-460" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="Ah-K4p36LesJGpR8TBD7-505">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-460" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" value="STS 失败或凭证异常&#xa;返回 Spark 错误" vertex="1">
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-460" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="STS 失败或凭证异常&#xa;返回 Spark 错误" vertex="1">
           <mxGeometry height="60" width="180" x="580" y="370" as="geometry" />
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-461" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" value="输出 JSON 临时凭证&#xa;AK / SK / SessionToken / Expiration" vertex="1">
-          <mxGeometry height="60" width="240" x="280" y="475" as="geometry" />
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-464" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-436" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-463.00000000000045" y="-375" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-464" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-436" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-437" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-465" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-437" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-438" value="">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-465" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-438" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-327" y="-375" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-466" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-438" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-439" value="">
           <mxGeometry relative="1" as="geometry" />
@@ -164,12 +159,13 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-481" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-446" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;dashed=1;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-457" value="JWT 文件">
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-481" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-446" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;dashed=1;fontSize=16;" value="JWT 文件">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="-310" y="250" />
               <mxPoint x="-310" y="290" />
             </Array>
+            <mxPoint x="76" y="290" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-482" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-451" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-453" value="是">
@@ -193,18 +189,23 @@
         <mxCell id="Ah-K4p36LesJGpR8TBD7-488" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-458" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-459" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-489" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-459" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-461" value="">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-489" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-459" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="475" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-490" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-457" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-458" value="">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-490" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-458" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="203.99999999999955" y="290" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-491" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-459" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-460" value="否">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Ah-K4p36LesJGpR8TBD7-492" edge="1" parent="1" source="Ah-K4p36LesJGpR8TBD7-461" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-503" value="返回凭证">
+        <mxCell id="Ah-K4p36LesJGpR8TBD7-492" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontSize=16;" target="Ah-K4p36LesJGpR8TBD7-503" value="返回凭证">
           <mxGeometry relative="1" x="-0.0033" as="geometry">
             <mxPoint as="offset" />
+            <mxPoint x="400" y="535" as="sourcePoint" />
             <mxPoint x="175" y="505" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -263,6 +264,15 @@
         </mxCell>
         <mxCell id="Ah-K4p36LesJGpR8TBD7-512" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" value="结束" vertex="1">
           <mxGeometry height="110" width="110" x="-380" y="-150" as="geometry" />
+        </mxCell>
+        <mxCell id="_1G-WLgaE3lR8S476-DK-2" parent="1" style="shape=process;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;size=0.03448275862069122;" value="挂载 /vault/config&lt;br&gt;与 /vault/secrets" vertex="1">
+          <mxGeometry height="60" width="140" x="-460" y="-405" as="geometry" />
+        </mxCell>
+        <mxCell id="_1G-WLgaE3lR8S476-DK-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" value="读取 minio-jwt" vertex="1">
+          <mxGeometry height="60" width="150" x="75" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="_1G-WLgaE3lR8S476-DK-4" parent="1" style="shape=process;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;size=0.07142857142857359;" value="输出 JSON 临时凭证&lt;br&gt;AK / SK / SessionToken / Expiration" vertex="1">
+          <mxGeometry height="60" width="210" x="295" y="475" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
