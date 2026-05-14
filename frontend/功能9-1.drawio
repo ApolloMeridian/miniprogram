@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="VewrNrdC4wIR6lN3i840">
-    <mxGraphModel dx="3160" dy="1398" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2175" dy="1131" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -25,10 +25,10 @@
         <mxCell id="_AmlV5aaeeW9YU4brRnA-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;fontSize=18;" value="绑定签发策略&#xa;用途 / TTL / 域名范围" vertex="1">
           <mxGeometry height="60" width="280" x="1345" y="435" as="geometry" />
         </mxCell>
-        <mxCell id="_AmlV5aaeeW9YU4brRnA-51" edge="1" parent="1" source="_AmlV5aaeeW9YU4brRnA-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=18;strokeColor=#000000;" target="_AmlV5aaeeW9YU4brRnA-50">
+        <mxCell id="EIq9Cgd0IA8mEbALCbqt-1" edge="1" parent="1" source="_AmlV5aaeeW9YU4brRnA-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="_AmlV5aaeeW9YU4brRnA-10">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="_AmlV5aaeeW9YU4brRnA-9" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;" value="创建Root CA" vertex="1">
+        <mxCell id="_AmlV5aaeeW9YU4brRnA-9" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;" value="发布信任链&lt;div&gt;根CA+中间CA&lt;/div&gt;" vertex="1">
           <mxGeometry height="60" width="280" x="1345" y="525" as="geometry" />
         </mxCell>
         <mxCell id="_AmlV5aaeeW9YU4brRnA-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=10;fontSize=18;" value="接收证书申请&#xa;CSR + SAN + 用途 + 主体" vertex="1">
@@ -87,13 +87,6 @@
         </mxCell>
         <mxCell id="_AmlV5aaeeW9YU4brRnA-29" edge="1" parent="1" source="_AmlV5aaeeW9YU4brRnA-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=2;fontSize=18;" target="_AmlV5aaeeW9YU4brRnA-9" value="">
           <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="_AmlV5aaeeW9YU4brRnA-30" edge="1" parent="1" source="_AmlV5aaeeW9YU4brRnA-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=2;fontSize=18;" target="_AmlV5aaeeW9YU4brRnA-10" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="650" y="555" />
-            </Array>
-          </mxGeometry>
         </mxCell>
         <mxCell id="_AmlV5aaeeW9YU4brRnA-31" edge="1" parent="1" source="_AmlV5aaeeW9YU4brRnA-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=2;fontSize=18;" target="_AmlV5aaeeW9YU4brRnA-11" value="">
           <mxGeometry relative="1" as="geometry" />
@@ -192,9 +185,6 @@
         </mxCell>
         <mxCell id="_AmlV5aaeeW9YU4brRnA-49" edge="1" parent="1" source="_AmlV5aaeeW9YU4brRnA-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=2;fontSize=18;" target="_AmlV5aaeeW9YU4brRnA-25" value="">
           <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="_AmlV5aaeeW9YU4brRnA-50" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;" value="创建Intermediate CA" vertex="1">
-          <mxGeometry height="60" width="190" x="1100" y="525" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
