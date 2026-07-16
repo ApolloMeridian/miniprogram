@@ -1,18 +1,1 @@
-(base) [root@worker01-cdpdit spark]# python - <<'PY'
-> import boto3
-> 
-> s3=boto3.client(
->     "s3",
->     endpoint_url="http://10.44.208.224:9878",
->     aws_access_key_id="gcy.jobuserxxx",
->     aws_secret_access_key="9c4fb80b450bxxx"
-> )
-> 
-> print(s3.list_objects_v2(Bucket="gcy-qb1s-obs", MaxKeys=1))
-> PY
-{'ResponseMetadata': {'RequestId': '5b3ddca3-39eb-4a23-b983-ebe9c8462947', 'HostId': '04qzuzppBxd', 'HTTPStatusCode': 200, 'HTTPHeaders': {'date': 'Wed, 15 Jul 2026 02:10:56 GMT', 'cache-control': 'no-cache', 'expires': 'Wed, 15 Jul 2026 02:10:56 GMT', 'pragma': 'no-cache', 'content-type': 'application/xml', 'strict-transport-security': 'max-age=63072000; includeSubDomains;', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'x-frame-options': 'SAMEORIGIN', 'server': 'Ozone', 'x-amz-id-2': '04qzuzppBxd', 'x-amz-request-id': '5b3ddca3-39eb-4a23-b983-ebe9c8462947', 'content-length': '1185'}, 'RetryAttempts': 0}, 'IsTruncated': True, 'Contents': [{'Key': 'data/gcy/parquet/QB1S/2023-05/2023-05-30/VIN_LAST_INDEX_THREE=000/PART=0/part-00000-3a245923-8a06-465d-96b6-9e3c8f9625e0_00000.c000.gz.parquet', 'LastModified': datetime.datetime(2025, 4, 27, 8, 10, 31, 359000, tzinfo=tzutc()), 'ETag': '2025-04-27T08:10:31.359Z', 'Size': 116171870, 'StorageClass': 'STANDARD'}], 'Name': 'gcy-qb1s-obs', 'MaxKeys': 1, 'EncodingType': 'url', 'KeyCount': 1, 'NextContinuationToken': '0000008e646174612f6763792f706172717565742f514231532f323032332d30352f323032332d30352d33302f56494e5f4c4153545f494e4445585f54485245453d3030302f504152543d302f706172742d30303030302d33613234353932332d386130362d343635642d393662362d3965336338663936323565305f30303030302e633030302e677a2e70617271756574-dadce5e0c7330159817d0acac1db0fc56444fc367916c306b77d3f65fda8ad9d'}
-(base) [root@worker01-cdpdit spark]# curl -v http://10.44.208.224:9878/
-* About to connect() to 10.44.208.224 port 9878 (#0)
-*   Trying 10.44.208.224...
-* Connected to 10.44.208.224 (10.44.208.224) port 9878 (#0)
-> GET / HTTP/1.
+
