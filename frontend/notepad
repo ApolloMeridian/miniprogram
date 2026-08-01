@@ -1,1 +1,77 @@
+timezone: "Asia/Jakarta"
+image:
+  registry: id-gcy-bigdata-acr-registry-vpc.ap-southeast-5.cr.aliyuncs.com
+  tag: latest
+  pullPolicy: IfNotPresent
+  pullSecret: "acr-secret"
+  master: bigdata/dolphinscheduler-master
+  worker: bigdata/dolphinscheduler-workeraset -euo pipefail
 
+# =========================
+# 1. 基础配置
+# =========================
+#!/bin/bash
+  api: bigdata/dolphinscheduler-api
+  alert: bigdata/dolphinscheduler-alert-server
+  tools: bigdata/dolphinscheduler-tools
+
+initImage:
+  pullPolicy: IfNotPresent
+  busybox: "id-gcy-bigdata-acr-registry-vpc.ap-southeast-5.cr.aliyuncs.com/bigdata/busybox:1.30.1"
+
+postgresql:
+  enabled: false
+
+externalDatabase:
+  enabled: true
+  type: "postgresql"
+  host: "pgm-k1av0n621fd27e3r.pgsql.ap-southeast-5.rds.aliyuncs.com"
+  port: "5432"
+  username: "dolphinscheduler"
+  password: "dolphinscheduler_pass"
+  database: "dolphinscheduler"
+  params: "characterEncoding=utf8"
+  driverClassName: "org.postgresql.Driver"
+
+zookeeper:
+  image:
+    registry: id-gcy-bigdata-acr-registry-vpc.ap-southeast-5.cr.aliyuncs.com
+    repository: bigdata/bitnamilegacy/zookeeper
+    tag: 3.8.4
+
+minio:
+  enabled: false
+
+conf:
+  auto: false
+  common:
+    data.basedir.path: /tmp/dolphinscheduler
+    resource.storage.type: S3
+    resource.storage.upload.base.path: /dolphinscheduler
+    aws.credentials.provider.type: AWSStaticCredentialsProvider
+    aws.s3.access.key.id: ACCESS_KEY
+    aws.s3.access.key.secret: SECRET_KEY
+    aws.s3.region: ap-southeast-5
+    aws.s3.bucket.name: id-gcy-bigdata-oss-rel
+    aws.s3.endpoint: https://s3.oss-ap-southeast-5-internal.aliyuncs.com
+    resource.hdfs.fs.defaultFS: s3a://id-gcy-bigdata-oss-rel/dolphinscheduler
+
+master:
+  replicas: "3"
+  nodeSelector:
+    workload-type: ecs-system
+
+worker:
+  replicas: "3"
+  env:
+    WORKER_TENANT_CONFIG_DEFAULT_TENANT_ENABLED: "true"
+  nodeSelector:
+    workload-type: ecs-system
+
+alert:
+  nodeSelector:
+    workload-type: ecs-system
+
+api:
+  nodeSelector:
+    workload-type: ecs-system
