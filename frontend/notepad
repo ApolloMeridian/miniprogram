@@ -1,1 +1,1 @@
-*/5 * * * * crictl rm $(crictl ps -a --state Exited -q)
+
