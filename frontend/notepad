@@ -1,1 +1,45 @@
-
+AbortMessage: xpcom_runtime_abort(###!!! ABORT: file resource://nimbus/lib/RemoteSettingsExperimentLoader.sys.mjs:287)
+AdapterDeviceID: llvmpipe (LLVM 20.1.2, 256 bits)
+AdapterDriverVendor: mesa/llvmpipe
+AdapterDriverVersion: 25.2.8.0
+AdapterVendorID: Mesa
+AsyncShutdownTimeout: {"phase":"quit-application","conditions":[{"name":"RemoteSettingsExperimentLoader: disabling","state":"(none)","filename":"resource://nimbus/lib/RemoteSettingsExperimentLoader.sys.mjs","lineNumber":287,"stack":["resource://nimbus/lib/RemoteSettingsExperimentLoader.sys.mjs:enable:287","resource://nimbus/ExperimentAPI.sys.mjs:init:275"]}]}
+AvailablePageFile: 21417218048
+AvailablePhysicalMemory: 44975403008
+AvailableSwapMemory: 8589930496
+AvailableVirtualMemory: 48125808640
+BackgroundTaskMode: 0
+BuildID: 20260204004611
+ContentSandboxCapabilities: 119
+ContentSandboxCapable: 1
+ContentSandboxLevel: 6
+CrashTime: 1786428217
+DOMFissionEnabled: 1
+DOMIPCEnabled: 1
+DesktopEnvironment: xfce
+EMCheckCompatibility: true
+GpuSandboxLevel: 0
+GraphicsNumActiveRenderers: 1
+GraphicsNumRenderers: 0
+HeadlessMode: 0
+InstallTime: 1786348688
+IsWayland: 0
+LastInteractionDuration: 56
+LastStartupWasCrash: 0
+LinuxMemoryPSI: 0,0,0,16,0,0,0,16
+LinuxUnderMemoryPressure: 0
+MozCrashReason: [Parent 3578, Main Thread] ###!!! ABORT: file resource://nimbus/lib/RemoteSettingsExperimentLoader.sys.mjs:287
+Notes: Ubuntu Core 22-L1000-W0000000-T1) WR? WR+ xpcom_runtime_abort(###!!! ABORT: file resource://nimbus/lib/RemoteSettingsExperimentLoader.sys.mjs:287)
+ProductID: {ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+ProductName: Firefox
+RDDProcessStatus: Running
+ReleaseChannel: release
+SafeMode: 0
+SecondsSinceLastCrash: 13963
+ShutdownProgress: quit-application
+ShutdownReason: AppClose
+StartupCacheValid: 1
+StartupCrash: 0
+StartupTime: 1786428133
+SubmittedFrom: Client
+TelemetryEnvironment: {"build":{"applicationId":"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}","applicationName":"Firefox","architecture":"x86-64","buildId":"20260204004611","version":"147.0.3","vendor":"Mozilla","displayVersion":"147.0.3","platformVersion":"147.0.3","xpcomAbi":"x86_64-gcc3","updaterAvailable":false},"partner":{"distributionId":"canonical-002","distributionVersion":"1.0","partnerId":"ubuntu","distributor":"canonical","distributorChannel":"","partnerNames":["ubuntu"]},"system":{"memoryMB":48150,"virtualMaxMB":null,"cpu":{"count":12,"cores":6,"pcount":6,"mcount":0,"ecount":0,"vendor":"GenuineIntel","name":"Intel(R) Xeon(R) Gold 5420+","family":6,"model":143,"stepping":8,"l2cacheKB":2048,"l3cacheKB":53760,"speedMHz":0,"extensions":["hasMMX","hasSSE","hasSSE2","hasSSE3","hasSSSE3","hasSSE4_1","hasSSE4_2","hasAVX","hasAVX2","hasAES"]},"os":{"name":"Linux","version":"7.0.0-28-generic","locale":"en-US","distro":"Ubuntu-core","distroVersion":"22"},"hdd":{"profile":{"model":null,"revision":null,"type":null},"binary":{"model":null,"revision":null,"type":null},"system":{"model":null,"revision":null,"type":null}},"gfx":{"DWriteEnabled":null,"ContentBackend":"Skia","Headless":false,"TargetFrameRate":59,"textScaleFactor":1,"adapters":[{"description":"llvmpipe (LLVM 20.1.2, 256 bits)","vendorID":"Mesa","deviceID":"llvmpipe (LLVM 20.1.2, 256 bits)","subsysID":null,"RAM":0,"driver":null,"driverVendor":"mesa/llvmpipe","driverVersion":"25.2.8.0","driverDate":null,"GPUActive":true},{"description":null,"vendorID":"0x1af4","deviceID":"0x1050","subsysID":null,"RAM":null,"driver":null,"driverVendor":null,"driverVersion":null,"driverDate":null,"GPUActive":false}],"monitors":[{"screenWidth":1440,"screenHeight":960,"defaultCSSScaleFactor":1,"contentsScaleFactor":1}],"features":{"compositor":"webrender_software","hwCompositing":{"status":"blocked:"},"gpuProcess":{"status":"unused"},"webrender":{"status":"blocklisted:FEATURE_FAILURE_SOFTWARE_GL"},"wrCompositor":{"status":"blocklisted:FEATURE_FAILURE_WEBRENDER_COMPOSITOR_DISABLED"},"openglCompositing":{"status":"unavailable:FEATURE_FAILURE_OPENGL_NEED_HWCOMP"},"omtp":{"status":"unused"}}},"appleModelId":null,"hasWinPackageId":null},"settings":{"blocklistEnabled":true,"e10sEnabled":true,"e10sMultiProcesses":8,"fissionEnabled":true,"locale":"en-US","intl":{"requestedLocales":["en-US"],"availableLocales":["en-US"],"appLocales":["en-US"],"systemLocales":["en-US"],"regionalPrefsLocales":["en-US"],"acceptLanguages":["en-US","en"]},"update":{"channel":"release","enabled":false,"autoDownload":false,"background":false},"userPrefs":{"browser.urlbar.autoFill":true,"browser.urlbar.autoFill.adaptiveHistory.enabled":false,"browser.urlbar.dnsResolveSingleWordsAfterSearch":0,"browser.urlbar.suggest.quicksuggest.sponsored":false,"media.gmp-gmpopenh264.lastInstallStart":1786352147,"media.gmp-gmpopenh264.lastDownloadFailed":1786352327,"media.gmp-gmpopenh264.lastDownloadFailReason":"Error: Failed downloading via ServiceRequest, status: 0, channelStatus: 2152398862, errorCode: 2, reason: error","media.gmp-manager.lastCheck":1786352147,"network.http.microsoft-entra-sso.enabled":false,"network.trr.strict_native_fallback":false,"widget.content.gtk-high-contrast.enabled":true},"sandbox":{"effectiveContentProcessLevel":6,"contentWin32kLockdownState":3},"addonCompatibilityCheckEnabled":true,"isDefaultBrowser":false,"defaultSearchEngine":"google-ubuntu-sn","defaultSearchEngineData":{"loadPath":"[app]google","name":"Google","submissionUR
