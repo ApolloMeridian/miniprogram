@@ -1,1 +1,1434 @@
+"""Export overseas QB1S data with protocol-driven Chinese signal names.
 
+Usage:
+    qb1s_exp_output_spark_schema_oversea.py \
+        <vin[,vin...]> <signal[,signal...]|ALL> <start_date> <end_date> \
+        <history_path> <output_path> <parquet|csv>
+
+Groovy callback execution is enabled by default. Set
+QB_EXPORT_DO_CALLBACK=false to retain the legacy float32 signal output.
+"""
+
+import pyarrow as pa
+import hashlib
+import json
+import math
+import os
+import time
+import uuid
+from typing import Iterator
+import pyspark
+from pyspark import StorageLevel, TaskContext
+from pyspark.sql.types import (
+    MapType,
+    FloatType,
+)
+from fast_parser import Parser, extract_signal_metadata
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    StringType,
+    LongType,
+)
+from pyspark.sql import SparkSession, functions as F
+from pyspark.sql.functions import col, broadcast
+from datetime import datetime, timedelta
+
+###################################################################################
+# 协议下载
+
+import requests
+from typing import Optional
+
+
+_EXPORT_PARSER_CACHE_KEY = None
+_EXPORT_PARSER_CACHE = None
+
+
+def create_export_parser(params):
+    return Parser(
+        signal_schema=params["signal_schema"],
+        input_data=params["input_data"],
+        vin_to_car_type=params["vin_to_car_type"],
+        car_type_to_signal_model=params["car_type_to_signal_model"],
+        protocol_flag=params["protocol_flag"],
+        do_callback=params["do_callback"],
+        signal_aliases=params["signal_aliases"],
+    )
+
+
+def acquire_export_parser(params):
+    """Reuse one QB1S parser in each Spark Python worker process."""
+    global _EXPORT_PARSER_CACHE_KEY, _EXPORT_PARSER_CACHE
+
+    cache_key = params["parser_cache_key"]
+    if (
+        _EXPORT_PARSER_CACHE_KEY == cache_key
+        and _EXPORT_PARSER_CACHE is not None
+    ):
+        return _EXPORT_PARSER_CACHE, True
+
+    parser = create_export_parser(params)
+    _EXPORT_PARSER_CACHE_KEY = cache_key
+    _EXPORT_PARSER_CACHE = parser
+    return parser, False
+
+
+def discard_export_parser(cache_key, parser):
+    global _EXPORT_PARSER_CACHE_KEY, _EXPORT_PARSER_CACHE
+
+    if (
+        _EXPORT_PARSER_CACHE_KEY == cache_key
+        and _EXPORT_PARSER_CACHE is parser
+    ):
+        _EXPORT_PARSER_CACHE_KEY = None
+        _EXPORT_PARSER_CACHE = None
+
+
+def fetch_json_data(url: str, token=None) -> Optional[dict]:
+    headers = {"Accept": "application/json"}
+    if token is not None:
+        headers["Authorization"] = f"Bearer {token}"
+
+    # print(headers, url_string)
+    with requests.get(
+        url,
+        headers=headers,
+        timeout=int(os.getenv("QB_EXPORT_PROTOCOL_TIMEOUT", "30")),
+    ) as response:
+        response.raise_for_status()
+        try:
+            response_data = response.json()
+            return response_data
+        except Exception as e_parse:
+            print(f"处理响应时发生错误: {e_parse}")
+            return None
+
+
+def request_data(url: str, token_url: Optional[str] = None) -> dict:
+    if token_url is not None:
+        token_response = fetch_json_data(token_url)
+        if token_response is not None:
+            token = token_response[
+                os.getenv("QB_EXPORT_PLAIN_TOKEN_FIELD", "token")
+            ]
+    else:
+        token = None
+
+    return fetch_json_data(url, token)
+
+
+def download_param_data(car_type: str) -> tuple:
+    try:
+        qb_url_car_type = qb_url.format(car_type=car_type)
+    except (KeyError, IndexError):
+        qb_url_car_type = qb_url.format(car_type)
+    res = request_data(qb_url_car_type, token_url)
+    param_data = res.get("data", None)
+    sub_id_data = res.get("sub_id", None)
+    return (param_data, sub_id_data)
+
+
+def download_config_map() -> Optional[dict]:
+    if not qb_config_url:
+        return None
+    return request_data(qb_config_url, token_url)["data"]
+
+
+token_url = os.getenv(
+    "QB_EXPORT_PLAIN_TOKEN_URL"
+) or None
+qb_url = os.getenv(
+    "QB_EXPORT_PLAIN_PROTOCOL_URL_TEMPLATE"
+)
+qb_config_url = os.getenv(
+    "QB_EXPORT_PLAIN_CONFIG_MAP_URL"
+)
+
+
+def download_protocol(car_type_set: set[str]) -> tuple[dict, dict]:
+    config_map = download_config_map()
+    if config_map is None:
+        config_map = {car_type: car_type for car_type in car_type_set}
+    else:
+        config_map = {
+            key: val for key, val in config_map.items() if key in car_type_set
+        }
+
+    protocol_map = {}
+    for car_type, val in config_map.items():
+        if val in protocol_map:
+            continue
+        try:
+            print(f"download protocol: {car_type}")
+            param_config, sub_id_config = download_param_data(car_type)
+            protocol_map[val] = json.dumps(
+                {"data": param_config, "sub_id": sub_id_config}
+            )
+        except Exception as err:
+            print(f"download protocol failed, car_type: {car_type}, message: {err}")
+
+    return config_map, protocol_map
+
+
+###################################################################################
+
+
+HEADER_FIELDS = [
+    ("vin", StringType(), pa.string()),
+    ("car_type", StringType(), pa.string()),
+    ("message_time", LongType(), pa.int64()),
+    ("data_time", LongType(), pa.int64()),
+    ("service_time", LongType(), pa.int64()),
+]
+
+OUTPUT_COLUMN_NAMES = {
+    "car_type": "车型",
+    "message_time": "原始报文中新技术院写入kafka数据时间戳",
+    "data_time": "原始报文中报文时间戳",
+    "service_time": "原始报文中工程院消费kafka数据时间戳",
+    "message_time_local": "原始报文中新技术院写入kafka数据时间戳转换的当地时间",
+    "data_time_local": "原始报文中报文时间戳转换的当地时间",
+    "service_time_local": "原始报文中工程院消费kafka数据时间戳转换的当地时间",
+    "signal": "信号",
+}
+
+
+def normalize_signals(signals: str) -> tuple[bool, list[str]]:
+    if not isinstance(signals, str):
+        raise TypeError("signals必须是字符串")
+    value = signals.strip()
+    if not value:
+        raise ValueError("signals不能为空")
+    if value.upper() == "ALL":
+        return True, []
+
+    signal_names = []
+    seen = set()
+    for item in value.split(","):
+        signal = item.strip()
+        if signal and signal not in seen:
+            seen.add(signal)
+            signal_names.append(signal)
+    if not signal_names:
+        raise ValueError("signals必须为ALL或至少包含一个有效信号名")
+    return False, signal_names
+
+
+def create_schema(
+    is_all: bool,
+    signal_names: list[str],
+    do_callback: bool,
+) -> tuple:
+    pyarrow_header = [
+        pa.field(name, arrow_type, nullable=True)
+        for name, _, arrow_type in HEADER_FIELDS
+    ]
+    spark_header = [
+        StructField(name, spark_type, True)
+        for name, spark_type, _ in HEADER_FIELDS
+    ]
+
+    if is_all:
+        map_value_arrow_type = pa.string() if do_callback else pa.float32()
+        map_value_spark_type = StringType() if do_callback else FloatType()
+        signal_fields_arrow = [
+            pa.field(
+                "signal",
+                pa.map_(pa.string(), map_value_arrow_type),
+                nullable=True,
+            )
+        ]
+        signal_fields_spark = [
+            StructField(
+                "signal",
+                MapType(StringType(), map_value_spark_type),
+                True,
+            )
+        ]
+    else:
+        signal_arrow_type = pa.string() if do_callback else pa.float32()
+        signal_spark_type = StringType() if do_callback else FloatType()
+        signal_fields_arrow = [
+            pa.field(signal, signal_arrow_type, nullable=True)
+            for signal in signal_names
+        ]
+        signal_fields_spark = [
+            StructField(signal, signal_spark_type, True)
+            for signal in signal_names
+        ]
+
+    parsed_schema = pa.schema(signal_fields_arrow)
+    output_schema = pa.schema(pyarrow_header + signal_fields_arrow)
+    output_schema_spark = StructType(spark_header + signal_fields_spark)
+    return parsed_schema, output_schema, output_schema_spark
+
+
+def build_selected_output_names(
+    signal_names: list[str],
+    signal_metadata: dict[str, str],
+) -> dict[str, str]:
+    used_names = {"vin", *OUTPUT_COLUMN_NAMES.values()}
+    result = {}
+    for signal in signal_names:
+        base_name = signal_metadata.get(signal, signal)
+        output_name = base_name
+        if output_name in used_names:
+            output_name = f"{base_name}（{signal}）"
+        suffix = 2
+        while output_name in used_names:
+            output_name = f"{base_name}（{signal}-{suffix}）"
+            suffix += 1
+        used_names.add(output_name)
+        result[signal] = output_name
+    return result
+
+
+def post_helper(service_name, data):
+    service_url = os.getenv(
+        "QB_EXPORT_AGREEMENT_SERVICE_URL",
+        "http://10.197.104.75/api/cams-export/service/",
+    ).rstrip("/") + "/"
+    get_agreement_url = service_url + service_name
+    json_data = json.dumps(data)
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(
+        get_agreement_url,
+        data=json_data,
+        headers=headers,
+        timeout=int(os.getenv("QB_EXPORT_PROTOCOL_TIMEOUT", "30")),
+    )
+
+    if response.status_code != 200:
+        print("接口挂了")
+        raise ValueError(f"response code: {response.status_code}")
+    response_data = response.json()
+    if not response_data["success"]:
+        print("响应值有问题")
+        raise ValueError("response failed.")
+
+    return response_data["data"]
+
+
+def get_agreement(car_type):
+    data = {"carType": car_type}
+    response_data = post_helper("getAgreement", data)
+    return response_data
+
+
+def get_agreement_key(uuid, car_type):
+    data = {"carType": car_type, "uuid": uuid}
+    response_data = post_helper("getAgreementKey", data)
+    return response_data
+
+
+def get_protocol(car_type_list):
+    # 创建一个空字典，用于存储每个 cartype 对应的结果
+    results_dict = {}
+    for car_type in car_type_list:
+        res_text_1 = get_agreement(car_type=car_type)
+        protocol_entrypt_text = res_text_1["ciphertext"]
+        uuid = res_text_1["uuid"]
+        res_text_2 = get_agreement_key(uuid=uuid, car_type=car_type)
+
+        random_text = res_text_2["random"]
+        cipher_text = res_text_2["ciphertext"]
+        protocol_iv_text = res_text_2["iv"]
+
+        config_data = {
+            "protocol_encrypt_text": protocol_entrypt_text,
+            "random_text": random_text,
+            "cipher_text": cipher_text,
+            "protocol_iv_text": protocol_iv_text,
+            "default_iv_text": "977d4288863e78dd4484397e3ce1f68f",
+        }
+
+        # # 将JSON数据转换为字符串形式
+        # config_data_string = json.dumps(config_data)
+
+        # 将结果添加到字典中，以 cartype 为键
+        results_dict[car_type] = json.dumps(config_data)
+    return results_dict
+
+
+def is_today(date_str):
+    """判断日期是否为当天（YYYY-MM-DD）"""
+    try:
+        date = datetime.strptime(date_str, "%Y-%m-%d")
+        today = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
+        return date == today
+    except Exception as e:
+        print(f"日期格式错误：{str(e)}")
+        return False
+
+
+def get_yesterday():
+    """获取昨天日期（YYYY-MM-DD）"""
+    return (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+
+
+def get_date_range(start_date, end_date):
+    """生成起止日期之间的所有日期列表"""
+    dates = []
+    try:
+        current = datetime.strptime(start_date, "%Y-%m-%d")
+        end = datetime.strptime(end_date, "%Y-%m-%d")
+        while current <= end:
+            dates.append(current.strftime("%Y-%m-%d"))
+            current += timedelta(days=1)
+        return dates
+    except Exception as e:
+        print(f"生成日期范围失败：{str(e)}")
+        return []
+
+
+def env_bool(name, default=False):
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def positive_int_env(name, default):
+    raw_value = os.getenv(name, str(default)).strip()
+    try:
+        value = int(raw_value)
+    except ValueError as error:
+        raise ValueError(f"{name}必须是正整数，实际值: {raw_value}") from error
+    if value <= 0:
+        raise ValueError(f"{name}必须大于0，实际值: {value}")
+    return value
+
+
+def positive_float_env(name, default, maximum=None):
+    raw_value = os.getenv(name, str(default)).strip()
+    try:
+        value = float(raw_value)
+    except ValueError as error:
+        raise ValueError(f"{name}必须是正数，实际值: {raw_value}") from error
+    if value <= 0 or (maximum is not None and value > maximum):
+        maximum_text = f"且不大于{maximum}" if maximum is not None else ""
+        raise ValueError(
+            f"{name}必须大于0{maximum_text}，实际值: {value}"
+        )
+    return value
+
+
+def exact_col(column_name):
+    """Reference a top-level Spark column even when its name contains dots."""
+    escaped_name = column_name.replace("`", "``")
+    return F.col(f"`{escaped_name}`")
+
+
+def estimate_csv_row_bytes(dataframe, sample_rows):
+    """Estimate bytes written per CSV row using Spark's own CSV serializer."""
+    csv_struct = F.struct(
+        *[
+            exact_col(column_name).alias(column_name)
+            for column_name in dataframe.columns
+        ]
+    )
+    serialized_row = F.to_csv(csv_struct, options={"header": "false"})
+    row_size = F.length(F.encode(serialized_row, "UTF-8")) + F.lit(1)
+    stats = (
+        dataframe.limit(sample_rows)
+        .select(row_size.alias("csv_row_bytes"))
+        .agg(
+            F.avg("csv_row_bytes").alias("average_row_bytes"),
+            F.count(F.lit(1)).alias("sampled_rows"),
+        )
+        .first()
+    )
+    if stats is None or stats["sampled_rows"] == 0:
+        return 1.0, 0
+    return max(1.0, float(stats["average_row_bytes"])), int(stats["sampled_rows"])
+
+
+def plan_csv_range_partitions(dataframe, row_count):
+    target_file_mb = positive_float_env(
+        "QB_EXPORT_CSV_TARGET_FILE_MB",
+        512,
+    )
+    sample_rows = positive_int_env(
+        "QB_EXPORT_CSV_SAMPLE_ROWS",
+        20000,
+    )
+    max_range_partitions = positive_int_env(
+        "QB_EXPORT_CSV_MAX_RANGE_PARTITIONS",
+        os.getenv("QB_EXPORT_CSV_MAX_FILES_PER_VIN", "256"),
+    )
+    safety_factor = positive_float_env(
+        "QB_EXPORT_CSV_SIZE_SAFETY_FACTOR",
+        0.9,
+        maximum=1.0,
+    )
+
+    average_row_bytes, sampled_rows = estimate_csv_row_bytes(
+        dataframe,
+        sample_rows,
+    )
+    target_file_bytes = target_file_mb * 1024 * 1024
+    max_records_per_file = max(
+        1,
+        int(target_file_bytes * safety_factor / average_row_bytes),
+    )
+    estimated_files = max(
+        1,
+        math.ceil(row_count / max_records_per_file),
+    )
+    range_partitions = min(estimated_files, max_range_partitions)
+    estimated_total_mb = row_count * average_row_bytes / 1024 / 1024
+    return {
+        "average_row_bytes": average_row_bytes,
+        "sampled_rows": sampled_rows,
+        "max_records_per_file": max_records_per_file,
+        "estimated_files": estimated_files,
+        "range_partitions": range_partitions,
+        "estimated_total_mb": estimated_total_mb,
+        "target_file_mb": target_file_mb,
+    }
+
+
+def enable_parquet_vin_bloom_filter(spark):
+    """Apply the requested Parquet Bloom setting to the live Hadoop config."""
+    enabled = env_bool("QB_EXPORT_PARQUET_BLOOM_ENABLED", True)
+    spark.conf.set("spark.sql.parquet.filterPushdown", "true")
+    spark.sparkContext._jsc.hadoopConfiguration().set(
+        "parquet.filter.bloom.enabled", str(enabled).lower()
+    )
+    print(
+        f"VIN_BLOOM_CONFIG requested={str(enabled).lower()} "
+        f"filterPushdown={spark.conf.get('spark.sql.parquet.filterPushdown')} "
+        "parquet.filter.bloom.enabled="
+        f"{spark.sparkContext._jsc.hadoopConfiguration().get('parquet.filter.bloom.enabled')}"
+    )
+
+
+def inspect_parquet_vin_bloom(spark, dataframe):
+    """Read sample Parquet footers and report whether VIN Bloom data exists."""
+    if not env_bool("QB_EXPORT_DEBUG_BLOOM", False):
+        return
+
+    sample_limit = max(1, int(os.getenv("QB_EXPORT_BLOOM_SAMPLE_FILES", "3")))
+    files = list(dataframe.inputFiles())[:sample_limit]
+    jvm = spark.sparkContext._jvm
+    hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
+    print(f"VIN_BLOOM_INSPECT sample_files={len(files)}")
+
+    for file_path in files:
+        reader = None
+        try:
+            path = jvm.org.apache.hadoop.fs.Path(file_path)
+            input_file = jvm.org.apache.parquet.hadoop.util.HadoopInputFile.fromPath(
+                path, hadoop_conf
+            )
+            reader = jvm.org.apache.parquet.hadoop.ParquetFileReader.open(input_file)
+            vin_chunks = 0
+            bloom_chunks = 0
+            bloom_bytes = []
+            for block in reader.getFooter().getBlocks():
+                for column in block.getColumns():
+                    if column.getPath().toDotString() == "vin":
+                        vin_chunks += 1
+                        bloom_filter = reader.readBloomFilter(column)
+                        if bloom_filter is not None:
+                            bloom_chunks += 1
+                            bloom_bytes.append(bloom_filter.getBitsetSize())
+            print(
+                "VIN_BLOOM_FILE "
+                f"path={file_path} vin_row_groups={vin_chunks} "
+                f"bloom_row_groups={bloom_chunks} bloom_bytes={bloom_bytes}"
+            )
+        except Exception as exc:
+            print(f"VIN_BLOOM_INSPECT_ERROR path={file_path} error={exc}")
+        finally:
+            if reader is not None:
+                reader.close()
+
+
+def get_vin_history_partitions(spark, vin_list):
+    """Calculate the same VIN_LAST3/PART values as the QB HourToDay writer."""
+    vin_frame = spark.createDataFrame(
+        [(vin,) for vin in dict.fromkeys(vin_list)], ["vin"]
+    )
+    vin_last3 = F.substring(F.col("vin"), -3, 3)
+    rows = (
+        vin_frame.select(
+            vin_last3.alias("vin_last3"),
+            F.when(vin_last3 == "1000", F.lit("1-0"))
+            .otherwise(F.concat(F.lit("3-"), F.pmod(F.hash("vin"), F.lit(3))))
+            .alias("part"),
+        )
+        .distinct()
+        .collect()
+    )
+    return sorted((row["vin_last3"], row["part"]) for row in rows)
+
+
+def get_vin_last3(vin_list):
+    """计算vin列表对应的后三位（VIN_LAST3分区值）"""
+    # 确保vin长度足够，不足3位的补全（根据实际业务处理）
+    last3_set = set()
+    for vin in vin_list:
+        if len(vin) >= 3:
+            last3 = vin[-3:]  # 取后三位
+            last3_set.add(last3)
+        else:
+            print(f"警告：VIN {vin} 长度不足3位，无法提取后三位")
+    return sorted(last3_set)  # 返回排序后的列表，便于路径拼接
+
+
+def read_hdfs_data(spark, start_time, end_time, vin_str,hdfs_root_history,hdfs_root_realtime):
+    # 1. 解析vin列表并计算对应的VIN_LAST3
+    vin_list = [vin.strip() for vin in vin_str.split(",") if vin.strip()]
+    if not vin_list:
+        raise ValueError("vin列表为空，请检查输入")
+    debug_actions = env_bool("QB_EXPORT_DEBUG_ACTIONS", False)
+    strict_read = env_bool("QB_EXPORT_STRICT_READ", True)
+    print(f"筛选的VIN列表：{vin_list}")
+
+    # 计算需要扫描的VIN_LAST3分区
+    enable_parquet_vin_bloom_filter(spark)
+    target_partitions = get_vin_history_partitions(spark, vin_list)
+    target_last3 = sorted({last3 for last3, _ in target_partitions})
+    if not target_last3:
+        raise ValueError("无法生成有效的VIN_LAST3分区值")
+    print(f"需要扫描的VIN_LAST3分区：{target_last3}")
+
+    # 2. 定义需要保留的公共字段
+    common_fields = [
+        "vin",  # String类型
+        "message_time",  # Long类型
+        "service_time",  # Long类型
+        "data_time",  # Long类型
+        "data",  # Array[Byte]类型
+        "file_type",  # Int类型
+        "iccid",  # String类型
+        "vehicleCode",  # String类型
+        "uuid"  # String类型
+    ]
+    print(f"保留的公共字段：{common_fields}")
+
+    # 3. 区分历史和当天数据的HDFS根路径
+    # hdfs_root_history = "hdfs://nameserviceuz1/data/parquet/QB"  # 历史数据根路径
+    # hdfs_root_realtime = "hdfs://nameserviceuz1/data/parquet/QB_REALTIME"  # 当天数据根路径
+    print(f"历史数据根路径：{hdfs_root_history}")
+    print(f"当天数据根路径：{hdfs_root_realtime}")
+
+    # 4. 日期参数
+    today = datetime.today().strftime("%Y-%m-%d")
+    yesterday = get_yesterday()
+    start_is_today = is_today(start_time)
+    end_is_today = is_today(end_time)
+
+    print(f"系统当天：{today}，处理时间范围：{start_time} 至 {end_time}")
+
+    if start_time > end_time:
+        raise ValueError("start_time不能晚于end_time")
+
+    all_dfs = []
+
+    if start_is_today:
+        # 场景1：只读取当天数据（使用QB_REALTIME根路径，无VIN_LAST3分区）
+        print("读取当天数据并处理...")
+        month = today[:7]
+        today_path = f"{hdfs_root_realtime}/MONTH={month}/DAY={today}/HOUR=*"
+        try:
+            df = spark.read.parquet(today_path) \
+                .select(common_fields) \
+                .filter(
+                    (col("file_type") == 1)
+                    & col("vin").isin(vin_list)
+                )
+
+            all_dfs.append(df)
+            if debug_actions:
+                print(f"当天数据处理完成，记录数：{df.count()}")
+        except Exception as e:
+            if strict_read:
+                raise RuntimeError(f"当天数据读取失败 path={today_path}: {e}") from e
+            print(f"当天数据处理失败（忽略）：{str(e)}")
+
+    else:
+        # 场景2：读取历史数据+当天数据
+        # 2.1 处理历史数据（使用QB根路径，利用VIN_LAST3分区优化）
+        history_end = yesterday if end_time >= today else end_time
+        if start_time <= history_end:
+            print(f"读取历史数据（{start_time}至{history_end}），使用VIN_LAST3分区过滤...")
+            history_dates = get_date_range(start_time, history_end)
+
+            for date in history_dates:
+                month = date[:7]
+                # 拼接路径：根路径/月份/日期/VIN_LAST3=xxx/PART=*
+                partition_paths = [
+                    f"VIN_LAST3={last3}/PART={part}"
+                    for last3, part in target_partitions
+                ]
+                partition_glob = (
+                    partition_paths[0]
+                    if len(partition_paths) == 1
+                    else f"{{{','.join(partition_paths)}}}"
+                )
+                hist_path = f"{hdfs_root_history}/{month}/{date}/{partition_glob}"
+
+                try:
+                    # 只扫描目标VIN_LAST3分区，减少数据量
+                    df = spark.read.parquet(hist_path) \
+                        .select(common_fields) \
+                        .filter(
+                            (col("file_type") == 1)
+                            & col("vin").isin(vin_list)
+                        )
+
+                    all_dfs.append(df)
+                    if debug_actions:
+                        print(f"历史数据[{date}]处理完成，记录数：{df.count()}")
+                except Exception as e:
+                    if strict_read:
+                        raise RuntimeError(
+                            f"历史数据读取失败 date={date}, path={hist_path}: {e}"
+                        ) from e
+                    print(f"历史数据[{date}]处理失败（忽略）：{str(e)}")
+
+        # 2.2 处理当天数据（若end_time包含当天）
+        if end_time >= today:
+            print("补充读取当天数据...")
+            month = today[:7]
+            today_path = f"{hdfs_root_realtime}/MONTH={month}/DAY={today}/HOUR=*"
+            try:
+                df = spark.read.parquet(today_path) \
+                    .select(common_fields) \
+                    .filter(
+                        (col("file_type") == 1)
+                        & col("vin").isin(vin_list)
+                    )
+
+                all_dfs.append(df)
+                if debug_actions:
+                    print(f"当天数据补充完成，记录数：{df.count()}")
+            except Exception as e:
+                if strict_read:
+                    raise RuntimeError(
+                        f"当天数据读取失败 path={today_path}: {e}"
+                    ) from e
+                print(f"当天数据补充失败（忽略）：{str(e)}")
+
+    # 5. 合并所有数据
+    if not all_dfs:
+        raise ValueError("指定日期范围内没有可读取的数据路径")
+
+    combined_df = all_dfs[0]
+    for df in all_dfs[1:]:
+        combined_df = combined_df.union(df)
+
+    if debug_actions:
+        print(f"最终合并数据总量：{combined_df.count()}")
+    return combined_df
+
+
+
+########################################################
+
+
+def run_spark(
+    vins: str,
+    signals: str,
+    start_time: str,
+    end_time: str,
+    base_path: str,
+    output_path: str,
+    output_format: str,
+    sql_car_type: str,
+):
+    is_all, requested_signals = normalize_signals(signals)
+    output_format = output_format.strip().lower()
+    write_mode = os.getenv("QB_EXPORT_WRITE_MODE", "overwrite").strip().lower()
+    if output_format not in {"parquet", "csv"}:
+        raise ValueError("QB_EXPORT_FORMAT只支持parquet或csv")
+    if write_mode not in {"overwrite", "append"}:
+        raise ValueError("QB_EXPORT_WRITE_MODE只支持overwrite或append")
+    adaptive_csv_enabled = (
+        output_format == "csv"
+        and env_bool("QB_EXPORT_CSV_ADAPTIVE_SPLIT_ENABLED", True)
+    )
+    # Callback output is always a string, including the original physical
+    # value when no branch matches. Enable it by default for this export job
+    # and use a homogeneous string signal schema so callers never need to
+    # inspect protocol callback definitions manually.
+    do_callback = env_bool("QB_EXPORT_DO_CALLBACK", True)
+    flatten_all_csv = is_all and output_format == "csv"
+    adaptive_input_cached = False
+
+    region = os.getenv("QB_EXPORT_REGION", "Asia/Seoul").strip()
+    if not region:
+        raise ValueError("QB_EXPORT_REGION不能为空")
+
+    #################################
+    # spark 配置
+    spark = (
+        SparkSession.builder.appName("qb1s-data-export")
+        .config("spark.sql.execution.arrow.pyspark.enabled", "true")
+        .config("spark.python.worker.reuse", "true")
+        .config("spark.sql.session.timeZone", region)
+        .config("spark.sql.parquet.filterPushdown", "true")
+        .config(
+            "spark.hadoop.parquet.filter.bloom.enabled",
+            str(env_bool("QB_EXPORT_PARQUET_BLOOM_ENABLED", True)).lower(),
+        )
+        .config(
+            "spark.sql.execution.arrow.maxRecordsPerBatch",
+            os.getenv("QB_EXPORT_ARROW_MAX_RECORDS_PER_BATCH", "1000"),
+        )
+        .enableHiveSupport()
+        .getOrCreate()
+    )
+    print(f"PySpark Library Version: {pyspark.__version__}")
+    print(f"Spark Session (Cluster) Version: {spark.version}")
+    print(
+        "QB_EXPORT_SIGNAL_CONFIG "
+        f"mode={'ALL' if is_all else 'SELECTED'} "
+        f"requested={requested_signals if not is_all else 'ALL'} "
+        f"region={region} "
+        f"doCallback={str(do_callback).lower()} "
+        f"adaptiveCsvSplit={str(adaptive_csv_enabled).lower()}"
+    )
+
+    requested_vins = list(dict.fromkeys(
+        vin.strip() for vin in vins.split(",") if vin.strip()
+    ))
+    if not requested_vins:
+        raise ValueError("vin列表为空，请检查输入")
+    lookup_key = os.getenv("QB_EXPORT_LOOKUP_KEY", "vehicleCode").strip()
+    protocol_mode = os.getenv(
+        "QB_EXPORT_PROTOCOL_MODE", "encrypted"
+    ).strip().lower()
+    if protocol_mode in {"plain", "plaintext", "domestic"}:
+        protocol_mode = "plain"
+    elif protocol_mode in {"encrypted", "encrypt", "oversea", "overseas"}:
+        protocol_mode = "encrypted"
+    else:
+        raise ValueError(
+            f"不支持的QB_EXPORT_PROTOCOL_MODE: {protocol_mode}"
+        )
+
+    #################################
+    # target_vins = vins.split(',')
+    # 数据源配置
+    # df_message = spark.read.option("basePath", base_path).parquet(base_path)
+    # source_df = df_message.filter((df_message.DAY >= start_time) & (df_message.DAY <= end_time) & (col("vin").isin(target_vins)) & (col("file_type") == 1)).repartition(col("vin"))
+    # 国内明文模式使用vin，海外加密模式使用vehicleCode。
+    realtime_path = os.getenv("QB_EXPORT_REALTIME_PATH", base_path.rstrip("/") + "_REALTIME")
+    source_df = read_hdfs_data(
+        spark, start_time, end_time, vins, base_path, realtime_path
+    )
+    source_input_partitions = source_df.rdd.getNumPartitions()
+    max_source_partitions = max(
+        0, int(os.getenv("QB_EXPORT_MAX_SOURCE_PARTITIONS", "128"))
+    )
+    if (
+        max_source_partitions > 0
+        and source_input_partitions > max_source_partitions
+    ):
+        # This is a narrow coalesce: it does not reshuffle or reduce the files
+        # that must be opened, but it prevents thousands of ~1 second tasks
+        # when an export cluster only has a handful of executor cores.
+        source_df = source_df.coalesce(max_source_partitions)
+
+    # vehicleCode lookup consumes source_df once to discover lookup keys and a
+    # second time to parse rows. Cache only this filtered result (normally a
+    # tiny fraction of the realtime day) so the Parquet source is read once.
+    cache_filtered_source = (
+        lookup_key != "vin"
+        and env_bool("QB_EXPORT_CACHE_FILTERED_SOURCE", True)
+    )
+    if cache_filtered_source:
+        source_df.persist(StorageLevel.DISK_ONLY)
+
+    print(
+        "QB_EXPORT_SOURCE_CONFIG "
+        f"lookupKey={lookup_key} "
+        f"inputPartitions={source_input_partitions} "
+        f"executionPartitions={source_df.rdd.getNumPartitions()} "
+        f"cacheFilteredSource={str(cache_filtered_source).lower()}"
+    )
+    inspect_parquet_vin_bloom(spark, source_df)
+    if env_bool("QB_EXPORT_DEBUG_PLAN", False):
+        source_df.explain(mode="formatted")
+    if env_bool("QB_EXPORT_DEBUG_ACTIONS", False):
+        source_df.show(10, truncate=False)
+    if lookup_key == "vin":
+        # Plain/domestic export already receives exact VINs from the caller.
+        # Apply an explicit predicate to the dimension table instead of adding
+        # a distinct + join job merely to rediscover the requested VINs.
+        distinct_lookup_keys = None
+    else:
+        distinct_lookup_keys = source_df.select(lookup_key).distinct()
+    mapping_source_df = spark.sql(sql_car_type)
+    if lookup_key not in mapping_source_df.columns:
+        if lookup_key == "vehicleCode" and "type_code" in mapping_source_df.columns:
+            mapping_source_df = mapping_source_df.withColumnRenamed(
+                "type_code", "vehicleCode"
+            )
+        else:
+            raise ValueError(
+                f"车型SQL必须返回{lookup_key}和car_type，实际字段: "
+                f"{mapping_source_df.columns}"
+            )
+
+    filtered_mapping_df = mapping_source_df
+    if lookup_key == "vin":
+        filtered_mapping_df = mapping_source_df.filter(
+            col("vin").isin(requested_vins)
+        )
+
+    vin_car_type_df = (
+        filtered_mapping_df
+        .select(lookup_key, "car_type")
+        .dropna(subset=[lookup_key, "car_type"])
+        .dropDuplicates([lookup_key, "car_type"])
+    )
+    if distinct_lookup_keys is not None:
+        vin_car_type_df = vin_car_type_df.join(
+            distinct_lookup_keys, lookup_key, "inner"
+        )
+    vin_car_type_df = vin_car_type_df.cache()
+
+    input_df = source_df.join(
+        broadcast(vin_car_type_df), lookup_key, "inner"
+    )
+    #################################
+    # 准备协议和广播参数
+    vin_car_type_pd = vin_car_type_df.toPandas()
+    car_type_set = set(vin_car_type_pd["car_type"])
+    # print(f"number of car_types: {len(car_type_set)}")
+    # car_type_to_signal_model, protocol_map = download_protocol(car_type_set)
+    # input_data = json.dumps(protocol_map)
+
+    if protocol_mode == "plain":
+        car_type_to_signal_model, protocol_map = download_protocol(car_type_set)
+        car_type_to_signal_model = {
+            car_type: signal_model
+            for car_type, signal_model in car_type_to_signal_model.items()
+            if signal_model in protocol_map
+        }
+        protocol_flag = False
+    else:
+        protocol_map = get_protocol(car_type_set)
+        car_type_to_signal_model = {
+            car_type: car_type
+            for car_type in protocol_map
+        }
+        protocol_flag = True
+
+    missing_protocols = sorted(car_type_set - set(car_type_to_signal_model))
+    if missing_protocols and env_bool("QB_EXPORT_STRICT_PROTOCOL", True):
+        raise RuntimeError(f"以下车型没有可用协议: {missing_protocols}")
+    if not car_type_to_signal_model:
+        raise RuntimeError("没有任何可用车型协议")
+
+    valid_car_types = list(car_type_to_signal_model)
+    input_df = input_df.filter(col("car_type").isin(valid_car_types))
+    required_input_columns = [
+        "vin",
+        "car_type",
+        "message_time",
+        "data_time",
+        "service_time",
+        "data",
+    ]
+    if lookup_key not in required_input_columns:
+        required_input_columns.append(lookup_key)
+    input_df = input_df.select(
+        *[exact_col(column_name) for column_name in required_input_columns]
+    )
+    vin_car_type_pd = vin_car_type_pd[
+        vin_car_type_pd["car_type"].isin(valid_car_types)
+    ]
+
+    vin_row_counts = {}
+    if flatten_all_csv:
+        # Discovery and flat output both consume the same compact input.
+        # Cache the joined binary rows, never the much larger parsed Map.
+        input_df.persist(StorageLevel.DISK_ONLY)
+        adaptive_input_cached = True
+    elif adaptive_csv_enabled:
+        # Count on compact binary input instead of the parsed result.
+        if not cache_filtered_source:
+            input_df.persist(StorageLevel.DISK_ONLY)
+            adaptive_input_cached = True
+        vin_row_counts = {
+            row["vin"]: int(row["count"])
+            for row in input_df.groupBy("vin").count().collect()
+        }
+        print(f"QB_EXPORT_CSV_VIN_ROWS counts={vin_row_counts}")
+
+    input_data = json.dumps(protocol_map, ensure_ascii=False)
+    signal_metadata = extract_signal_metadata(input_data, protocol_flag)
+    if not signal_metadata:
+        raise RuntimeError("已下载的协议中没有可用信号定义")
+
+    if is_all:
+        selected_signal_names = []
+    else:
+        selected_signal_names = requested_signals
+        missing_signals = [
+            signal for signal in selected_signal_names
+            if signal not in signal_metadata
+        ]
+        if len(missing_signals) == len(selected_signal_names):
+            raise RuntimeError(
+                f"请求的信号在已下载协议中均不存在: {missing_signals}"
+            )
+        if missing_signals:
+            print(
+                "QB_EXPORT_MISSING_SIGNALS "
+                f"signals={missing_signals}; 对应输出列将保留并写入null"
+            )
+
+    vin_to_car_type = pa.RecordBatch.from_pandas(
+        vin_car_type_pd, preserve_index=False
+    )
+    parser_cache_namespace = uuid.uuid4().hex
+    base_params_to_broadcast = {
+        "input_data": input_data,
+        "vin_to_car_type": vin_to_car_type,
+        "car_type_to_signal_model": car_type_to_signal_model,
+        "protocol_flag": protocol_flag,
+        "do_callback": do_callback,
+        "data_col_key": "data",
+        "vin_col_key": lookup_key,
+    }
+    broadcast_base_params = spark.sparkContext.broadcast(base_params_to_broadcast)
+    active_parse_broadcasts = []
+
+    def parser_cache_key(
+        parse_is_all: bool,
+        parse_signal_names: list[str],
+        signal_aliases: dict[str, str],
+    ) -> str:
+        digest_source = json.dumps(
+            {
+                "mode": "map" if parse_is_all else "flat",
+                "signals": parse_signal_names,
+                "aliases": sorted(signal_aliases.items()),
+                "do_callback": do_callback,
+            },
+            ensure_ascii=False,
+            separators=(",", ":"),
+        )
+        digest = hashlib.sha256(digest_source.encode("utf-8")).hexdigest()
+        return f"{parser_cache_namespace}:{digest}"
+
+    def destroy_parse_broadcast(parse_broadcast):
+        if parse_broadcast is None:
+            return
+        try:
+            parse_broadcast.destroy()
+        finally:
+            if parse_broadcast in active_parse_broadcasts:
+                active_parse_broadcasts.remove(parse_broadcast)
+
+    def build_parsed_dataframe(
+        dataframe,
+        parse_is_all: bool,
+        parse_signal_names: list[str],
+        signal_aliases: dict[str, str],
+        profile_phase: str,
+    ):
+        signal_schema, output_schema, output_schema_spark = create_schema(
+            parse_is_all,
+            parse_signal_names,
+            do_callback,
+        )
+        dynamic_params = {
+            "parser_cache_key": parser_cache_key(
+                parse_is_all,
+                parse_signal_names,
+                signal_aliases,
+            ),
+            "output_schema": output_schema,
+            "signal_schema": signal_schema,
+            "signal_aliases": signal_aliases,
+            "profile_phase": profile_phase,
+        }
+        broadcast_dynamic_params = spark.sparkContext.broadcast(dynamic_params)
+        active_parse_broadcasts.append(broadcast_dynamic_params)
+
+        def parse_in_arrow_udf(
+            input_iterator: Iterator[pa.RecordBatch],
+        ) -> Iterator[pa.RecordBatch]:
+            params = dict(broadcast_base_params.value)
+            params.update(broadcast_dynamic_params.value)
+            cache_key = params["parser_cache_key"]
+            profile_enabled = env_bool("QB_EXPORT_PROFILE", False)
+            parser = None
+            cache_hit = False
+            init_seconds = 0.0
+            parse_seconds = 0.0
+            batch_count = 0
+            input_rows = 0
+            output_rows = 0
+            completed = False
+
+            parsed_names = params["signal_schema"].names.copy()
+            header_names = [
+                name
+                for name in params["output_schema"].names
+                if name not in parsed_names
+            ]
+
+            try:
+                for input_batch in input_iterator:
+                    if parser is None:
+                        init_started = time.perf_counter()
+                        parser, cache_hit = acquire_export_parser(params)
+                        init_seconds = time.perf_counter() - init_started
+
+                    batch_count += 1
+                    input_rows += input_batch.num_rows
+                    started = time.perf_counter()
+                    result_batch = parser.parse(
+                        input_batch,
+                        data_col_key=params["data_col_key"],
+                        vin_col_key=params["vin_col_key"],
+                    )
+                    parse_seconds += time.perf_counter() - started
+                    output_rows += result_batch.num_rows
+
+                    combined_arrays = [
+                        input_batch.column(name) for name in header_names
+                    ] + result_batch.columns
+                    yield pa.RecordBatch.from_arrays(
+                        combined_arrays,
+                        schema=params["output_schema"],
+                    )
+                completed = True
+            except Exception:
+                if parser is not None:
+                    discard_export_parser(cache_key, parser)
+                raise
+            finally:
+                if not completed and parser is not None:
+                    discard_export_parser(cache_key, parser)
+                if profile_enabled:
+                    context = TaskContext.get()
+                    partition_id = context.partitionId() if context else -1
+                    print(
+                        "QB_EXPORT_PROFILE "
+                        f"phase={params['profile_phase']} "
+                        f"partition={partition_id} "
+                        f"cache_hit={str(cache_hit).lower()} "
+                        f"init_seconds={init_seconds:.3f} "
+                        f"parse_seconds={parse_seconds:.3f} "
+                        f"batches={batch_count} "
+                        f"input_rows={input_rows} "
+                        f"output_rows={output_rows}",
+                        flush=True,
+                    )
+
+        parsed_df = dataframe.mapInArrow(
+            parse_in_arrow_udf,
+            schema=output_schema_spark,
+        )
+        return parsed_df, broadcast_dynamic_params
+
+    time_format = "yyyy-MM-dd HH:mm:ss"
+
+    def format_output_dataframe(
+        dataframe,
+        parse_is_all: bool,
+        parse_signal_names: list[str],
+    ):
+        dataframe = (
+            dataframe
+            .withColumn(
+                OUTPUT_COLUMN_NAMES["message_time_local"],
+                F.from_unixtime(
+                    (col("message_time") / F.lit(1000)).cast("long"),
+                    time_format,
+                ),
+            )
+            .withColumn(
+                OUTPUT_COLUMN_NAMES["data_time_local"],
+                F.from_unixtime(
+                    (col("data_time") / F.lit(1000)).cast("long"),
+                    time_format,
+                ),
+            )
+            .withColumn(
+                OUTPUT_COLUMN_NAMES["service_time_local"],
+                F.from_unixtime(
+                    (col("service_time") / F.lit(1000)).cast("long"),
+                    time_format,
+                ),
+            )
+        )
+        fixed_output_columns = [
+            col("vin"),
+            col("car_type").alias(OUTPUT_COLUMN_NAMES["car_type"]),
+            col("message_time").alias(OUTPUT_COLUMN_NAMES["message_time"]),
+            col("data_time").alias(OUTPUT_COLUMN_NAMES["data_time"]),
+            col("service_time").alias(OUTPUT_COLUMN_NAMES["service_time"]),
+            col(OUTPUT_COLUMN_NAMES["message_time_local"]),
+            col(OUTPUT_COLUMN_NAMES["data_time_local"]),
+            col(OUTPUT_COLUMN_NAMES["service_time_local"]),
+        ]
+        if parse_is_all:
+            signal_output_columns = [
+                col("signal").alias(OUTPUT_COLUMN_NAMES["signal"])
+            ]
+        else:
+            selected_output_names = build_selected_output_names(
+                parse_signal_names,
+                signal_metadata,
+            )
+            signal_output_columns = [
+                exact_col(signal).alias(selected_output_names[signal])
+                for signal in parse_signal_names
+            ]
+        return dataframe.select(
+            *fixed_output_columns,
+            *signal_output_columns,
+        )
+
+    output_path = output_path.rstrip("/")
+
+    def write_vin_dataframe(vin_dataframe, vin: str, row_count: int):
+        output_path_result = f"{output_path}/{vin}/"
+        max_records_per_file = None
+        data_time_column = OUTPUT_COLUMN_NAMES["data_time"]
+        if adaptive_csv_enabled and row_count > 0:
+            split_plan = plan_csv_range_partitions(vin_dataframe, row_count)
+            range_partitions = split_plan["range_partitions"]
+            max_records_per_file = split_plan["max_records_per_file"]
+            if range_partitions > 1:
+                ordered_vin_df = (
+                    vin_dataframe
+                    .repartitionByRange(
+                        range_partitions,
+                        exact_col(data_time_column),
+                    )
+                    .sortWithinPartitions(exact_col(data_time_column))
+                )
+            else:
+                ordered_vin_df = vin_dataframe.coalesce(1).sortWithinPartitions(
+                    exact_col(data_time_column)
+                )
+            print(
+                "QB_EXPORT_CSV_SPLIT_PLAN "
+                f"vin={vin} "
+                f"rows={row_count} "
+                f"sampledRows={split_plan['sampled_rows']} "
+                f"averageRowBytes={split_plan['average_row_bytes']:.1f} "
+                f"estimatedTotalMB={split_plan['estimated_total_mb']:.1f} "
+                f"targetFileMB={split_plan['target_file_mb']:.1f} "
+                f"estimatedFiles={split_plan['estimated_files']} "
+                f"rangePartitions={range_partitions} "
+                f"maxRecordsPerFile={max_records_per_file}"
+            )
+        else:
+            ordered_vin_df = vin_dataframe.coalesce(1).sortWithinPartitions(
+                exact_col(data_time_column)
+            )
+
+        writer = ordered_vin_df.write.mode(write_mode)
+        if max_records_per_file is not None:
+            writer = writer.option(
+                "maxRecordsPerFile",
+                str(max_records_per_file),
+            )
+        if output_format == "parquet":
+            writer.option("compression", "snappy").parquet(output_path_result)
+        else:
+            writer.option("header", "true").csv(output_path_result)
+        print(f"已将vin={vin}的数据写入: {output_path_result}")
+
+    result_df = None
+    result_cached = False
+    try:
+        if flatten_all_csv:
+            # Pass 1: discover every VIN's exact English signal-key union in
+            # one action. Do not persist the huge Map output.
+            discovery_started = time.perf_counter()
+            discovery_df, discovery_broadcast = build_parsed_dataframe(
+                input_df,
+                True,
+                [],
+                {},
+                "discovery",
+            )
+            try:
+                union_rows = (
+                    discovery_df
+                    .select(
+                        col("vin"),
+                        F.explode(F.map_keys(col("signal"))).alias("signal_name"),
+                    )
+                    .where(col("signal_name").isNotNull())
+                    .groupBy("vin")
+                    .agg(
+                        F.sort_array(
+                            F.collect_set("signal_name")
+                        ).alias("signal_names")
+                    )
+                    .collect()
+                )
+            finally:
+                destroy_parse_broadcast(discovery_broadcast)
+
+            signal_union_by_vin = {
+                row["vin"]: list(row["signal_names"] or [])
+                for row in union_rows
+            }
+            discovery_seconds = time.perf_counter() - discovery_started
+            print(
+                "QB_EXPORT_CSV_UNION_PLAN "
+                f"vins={len(requested_vins)} "
+                f"discoveredVins={len(signal_union_by_vin)} "
+                f"seconds={discovery_seconds:.3f}"
+            )
+            for vin in requested_vins:
+                print(
+                    "QB_EXPORT_CSV_SIGNAL_UNION "
+                    f"vin={vin} "
+                    f"signalColumns={len(signal_union_by_vin.get(vin, []))}"
+                )
+
+            # Discovery consumed all input partitions, so the compact joined
+            # input cache is now complete and the wider source cache can go.
+            if cache_filtered_source:
+                source_df.unpersist()
+                cache_filtered_source = False
+
+            # Pass 2: parse each VIN directly into flat Arrow float columns.
+            for vin in requested_vins:
+                flat_broadcast = None
+                flat_df = None
+                english_signal_names = signal_union_by_vin.get(vin, [])
+                vin_input_df = input_df.filter(col("vin") == vin)
+                materialize_started = time.perf_counter()
+                try:
+                    if english_signal_names:
+                        parsed_vin_df, flat_broadcast = build_parsed_dataframe(
+                            vin_input_df,
+                            False,
+                            english_signal_names,
+                            {},
+                            "flat",
+                        )
+                    else:
+                        # There is no signal column to parse. Input already
+                        # contains every fixed header needed by the export.
+                        parsed_vin_df = vin_input_df
+
+                    flat_df = format_output_dataframe(
+                        parsed_vin_df,
+                        False,
+                        english_signal_names,
+                    )
+                    flat_df.persist(StorageLevel.DISK_ONLY)
+                    row_count = flat_df.count()
+                    materialize_seconds = time.perf_counter() - materialize_started
+                    print(
+                        "QB_EXPORT_CSV_FLAT_PARSE "
+                        f"vin={vin} "
+                        f"signalColumns={len(english_signal_names)} "
+                        f"rows={row_count} "
+                        f"materializeSeconds={materialize_seconds:.3f}"
+                    )
+                    write_vin_dataframe(flat_df, vin, row_count)
+                finally:
+                    if flat_df is not None:
+                        flat_df.unpersist()
+                    destroy_parse_broadcast(flat_broadcast)
+        else:
+            signal_aliases = signal_metadata if is_all else {}
+            result_df, result_broadcast = build_parsed_dataframe(
+                input_df,
+                is_all,
+                selected_signal_names,
+                signal_aliases,
+                "single-pass",
+            )
+            result_df = format_output_dataframe(
+                result_df,
+                is_all,
+                selected_signal_names,
+            )
+
+            if len(requested_vins) > 1:
+                result_input_partitions = result_df.rdd.getNumPartitions()
+                result_cache_partitions = max(
+                    1,
+                    int(os.getenv("QB_EXPORT_RESULT_CACHE_PARTITIONS", "64")),
+                )
+                if result_input_partitions > result_cache_partitions:
+                    result_df = result_df.coalesce(result_cache_partitions)
+                result_df.persist(StorageLevel.DISK_ONLY)
+                result_cached = True
+                print(
+                    "QB_EXPORT_RESULT_CACHE "
+                    f"inputPartitions={result_input_partitions} "
+                    f"cachePartitions={result_df.rdd.getNumPartitions()} "
+                    f"requestedVins={len(requested_vins)}"
+                )
+
+            try:
+                for vin in requested_vins:
+                    vin_df = result_df.filter(col("vin") == vin)
+                    row_count = vin_row_counts.get(vin, 0)
+                    write_vin_dataframe(vin_df, vin, row_count)
+            finally:
+                destroy_parse_broadcast(result_broadcast)
+    finally:
+        if result_cached and result_df is not None:
+            result_df.unpersist()
+        for parse_broadcast in list(active_parse_broadcasts):
+            destroy_parse_broadcast(parse_broadcast)
+        if cache_filtered_source:
+            source_df.unpersist()
+        if adaptive_input_cached:
+            input_df.unpersist()
+        vin_car_type_df.unpersist()
+        broadcast_base_params.destroy()
+        spark.stop()
+
+
+if __name__ == "__main__":
+    import sys
+    vins = sys.argv[1] # LCX56464654654,LCX56464654655,LCX56464654656,LCX56464654657
+    signals = sys.argv[2] # signal1,signal2 or ALL
+    start_time = sys.argv[3]
+    end_time = sys.argv[4]
+    base_path = sys.argv[5]
+    output_path = sys.argv[6]
+    output_format = sys.argv[7]
+    protocol_mode = os.getenv(
+        "QB_EXPORT_PROTOCOL_MODE", "encrypted"
+    ).strip().lower()
+    if protocol_mode in {"plain", "plaintext", "domestic"}:
+        sql_car_type = os.getenv(
+            "QB_EXPORT_CAR_TYPE_CONFIG_SQL",
+            (
+                "SELECT vin, inner_car_type AS car_type "导出还是遇到了问题
+
+                "FROM polaris.dim.t_dim_vehicle_base_attribute "
+                "WHERE vin IS NOT NULL "
+                "AND inner_car_type IS NOT NULL"
+            ),
+        )
+    else:
+        sql_car_type = os.getenv(
+            "QB_EXPORT_CAR_TYPE_CONFIG_SQL",
+            "SELECT type_code, car_type FROM polaris.dim.t_dim_type_code_platform",
+        )
+    run_spark(
+        vins=vins,
+        signals=signals,
+        start_time=start_time,
+        end_time=end_time,
+        base_path=base_path,
+        output_path=output_path,
+        output_format=output_format,
+        sql_car_type=sql_car_type,
+    )
