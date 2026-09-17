@@ -1,1 +1,56 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: kafka-qb1s-jvm
+  namespace: spark
+spec:
+  type: Scala
+  mode: cluster
+  image: "europe-west9-docker.pkg.dev/fr-gcy-qb-bigdata-prod/fr-gcy-qb-bigdata-ar/spark:3.5.0-hadoop3.4-scala2.12-java11-python3.10-ubuntu22.04-gcp"
+  imagePullPolicy: IfNotPresent
+  mainClass: com.byd.spark.SparkParquetKafkaQB1sConsumer
+  mainApplicationFile: "gs://fr-gcy-qb-bigdata-gcs-prod/spark/scripts/com.byd.kafka.data-compress-4.0-SNAPSHOT.jar"
+  arguments:
+    - "gcy-consumer-demo-01"
+    - "cancollect-event-pro,cancollect-period-pro"
+    - "10.197.73.231:9092,10.197.73.232:9092,10.197.73.233:9092"
+    - "60"
+    - "gs://fr-gcy-qb-bigdata-gcs-prod/spark/data/parquet/QB1S_REALTIME"
+    - "30000"
+    - "5"
+    - "earliest"
+    - "Europe/Paris"
 
+  sparkVersion: "3.5.0"
+  restartPolicy:
+    type: Always
+    onFailureRetryInterval: 30
+    onSubmissionFailureRetryInterval: 30
+
+  dynamicAllocation:
+    enabled: true
+    initialExecutors: 4
+    minExecutors: 0
+    maxExecutors: 8
+    shuffleTrackingTimeout: 300000
+
+  sparkConf:
+    "spark.hadoop.fs.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem"
+    "spark.hadoop.fs.AbstractFileSystem.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS"
+    "spark.hadoop.fs.gs.project.id": "fr-gcy-qb-bigdata-prod"
+    "spark.hadoop.fs.gs.auth.type": "COMPUTE_ENGINE"
+
+    "spark.eventLog.enabled": "true"
+    "spark.eventLog.dir": "gs://fr-gcy-qb-bigdata-gcs-prod/spark/event-logs"
+    "spark.eventLog.rolling.enabled": "true"
+    "spark.eventLog.rolling.maxFileSize": "128m"
+    "spark.byd.kafka.checkpointLocation": "gs://fr-gcy-qb-bigdata-gcs-prod/spark/checkpoints/qb1s-group"
+
+    "spark.streaming.ui.retainedBatches": "60"
+    "spark.sql.ui.retainedExecutions": "60"
+    "spark.ui.retainedJobs": "100"
+    "spark.ui.retainedStages": "100"
+    "spark.ui.retainedTasks": "10000"
+    "spark.dynamicAllocation.executorIdleTimeout": "300s"
+    "spark.dynamicAllocation.schedulerBacklogTimeout": "1s"
+    "spark.dynamicAllocation.sustainedSchedulerBacklogTimeout": "1s"
